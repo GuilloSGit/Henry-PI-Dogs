@@ -13,6 +13,7 @@ const getApiInfoDog = async () => {
     const apiURL = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     const apiInfo = await apiURL.data.map(e => {
         return {
+            id: e.id,
             name: e.name,
             image: e.image.url,
             breed_group: e.breed_group,
@@ -62,18 +63,45 @@ router.get('/dogs', async (req, res) => {
     }
 });
 
-/* router.post('/dogs', async(req, res)=>{
+router.post('/dogs', async(req, res)=>{
     const { name,min_height,max_height,min_weight,max_weight,image,min_life_span,max_life_span,temperament,createdInDB } = req.body
 
     const dogCreated = await Dog.create({
-        name,min_height,max_height,min_weight,max_weight,image, min_life_span, max_life_span, createdInDB
+        name:name,min_height:min_height,max_height:max_height,min_weight:min_weight,max_weight:max_weight,image:image, min_life_span:min_life_span, max_life_span:max_life_span, createdInDB:createdInDB
     })
 
     const temperamentDB = await Temperament.findAll({
         where: { name: temperament }
     });
     dogCreated.addTemperament(temperamentDB)
-    res.json('Dog was properly created')
-}); */
+    res.status(202).send('Dog was properly created')
+});
+
+router.get('/temperament', async (req , res) =>{
+    const allData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+    const everyTemperament = allData.data.map(el => el.temperament).map(el => el?.split(', '));
+    /* Set para hacer UNIQUE :: Stackoverflow */
+    const eachTemperament = [...new Set(everyTemperament.flat())];
+    eachTemperament.forEach(el => {
+      if (el) {
+        Temperament.findOrCreate({
+          where: { name: el }
+        })
+      }
+    });
+    res.status(200).json(eachTemperament);
+})
+
+router.get('/dogs/:idRaza', async (req, res) =>{
+    const { idRaza } = req.params;
+    const allDogs = await getAllDogs();
+
+    if(!idRaza) {
+        res.status(404).json("Couldn't find the breed group")
+    }else {
+        const dog = allDogs.filter(dogui => dogui.id.toString() === idRaza);
+        res.status(200).json(dog)
+    }
+})
 
 module.exports = router;

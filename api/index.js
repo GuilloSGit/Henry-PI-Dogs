@@ -19,10 +19,24 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const axios = require('axios')
+const { Temperament } = require('./src/db');
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
+const boolean = true
+
+conn.sync({ force: boolean }).then(() => {
+  server.listen(3001, async () => {
+    const allData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+    const everyTemperament = allData.data.map(el => el.temperament).map(el => el?.split(', '));
+    const eachTemperament = [...new Set(everyTemperament.flat())]; /* Set = UNIQUE */
+    eachTemperament.forEach(el => {
+      if (el) {
+        Temperament.findOrCreate({
+          where: { name: el }
+        })
+      }
+    });
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });

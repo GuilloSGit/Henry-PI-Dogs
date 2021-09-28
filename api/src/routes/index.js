@@ -2,8 +2,7 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios')
-const { Temperament, Dog} = require('../db')
-
+const { Temperament, Dog} = require('../db');
 const router = Router();
 
 // Configurar los routers
@@ -16,15 +15,12 @@ const getApiInfo = async () => {
         return {
             name: e.name,
             breed_group: e.breed_group,
-            min_height: e.height.metric.Math.min(split(' - ')),
-            max_height: e.height.metric.Math.max(split(' - ')),
-            min_weight: e.height.metric.Math.min(split(' - ')),
-            max_weight: e.height.metric.Math.max(split(' - ')),
-            origin: e.origin,
+            max_height: (e.height.metric.split(' - ')).pop(),
+            max_weight: (e.weight.metric.split(' - ')).pop(),
             image: e.image.url,
-            life_span: e.life_span,
+            max_life_span: (e.life_span.split(' - ')).pop(),
             breed_group: e.breed_group,
-            temperament: e.temperament.map(el => el),
+            temperament: e.temperament,
         };
     });
     return apiInfo;
@@ -60,14 +56,17 @@ router.get('/dogs', async (req, res) => {
             res.status(200).send(dogName) :
             res.status(404).send("No encontramos la raza que está buscando")
     } else { /* Si no hay query en la URL */
-        res.status(200).send(dogsTotal)
+        res.status(200).json(dogsTotal)
     }
 });
 
 router.get('/temperaments', async (req, res) => {
-    const allData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
-    const allTemperaments =  allData.data.map(el => el.temperament).map(el => el?.split(', '));
-    res.status(200).send(allTemperaments);
+    
+    res.status(200).json(eachTemperament);
 });
+
+/* 
+    en esta ruta quiero componer cada temperamento en orden alfabético y meterlo en la db, pero no me da error ni me carga la tabla...
+*/
 
 module.exports = router;

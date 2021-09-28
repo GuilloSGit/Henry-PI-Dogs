@@ -9,24 +9,26 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 // router.use('/dogs', dogs)
 
-const getApiInfo = async () => {
+const getApiInfoDog = async () => {
     const apiURL = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     const apiInfo = await apiURL.data.map(e => {
         return {
             name: e.name,
-            breed_group: e.breed_group,
-            max_height: (e.height.metric.split(' - ')).pop(),
-            max_weight: (e.weight.metric.split(' - ')).pop(),
             image: e.image.url,
-            max_life_span: (e.life_span.split(' - ')).pop(),
             breed_group: e.breed_group,
             temperament: e.temperament,
+            min_height: (e.height.metric.slice(0, 2).trim()),
+            max_height: (e.height.metric.slice(4,7).trim()),
+            min_weight: (e.weight.metric.slice(0, 2).trim()),
+            max_weight: (e.weight.metric.slice(4,7).trim()),
+            min_life_span: (e.life_span.slice(0, 2).trim()),
+            max_life_span: (e.life_span.slice(4,7).trim()),
         };
     });
     return apiInfo;
 };
 
-const getDBInfo = async () => {
+const getDBInfoDog = async () => {
     return await Dog.findAll ({
         include:{
             model: Temperament,
@@ -39,8 +41,8 @@ const getDBInfo = async () => {
 };
 
 const getAllDogs = async () => {
-    const apiInfo = await getApiInfo();
-    const DBInfo = await getDBInfo();
+    const apiInfo = await getApiInfoDog();
+    const DBInfo = await getDBInfoDog();
     const infoTotal = apiInfo.concat(DBInfo);
     return infoTotal;
 };
@@ -54,19 +56,24 @@ router.get('/dogs', async (req, res) => {
         );
         dogName.length ? 
             res.status(200).send(dogName) :
-            res.status(404).send("No encontramos la raza que está buscando")
+            res.status(404).send("Couldn't find the breed you are looking for")
     } else { /* Si no hay query en la URL */
         res.status(200).json(dogsTotal)
     }
 });
 
-router.get('/temperaments', async (req, res) => {
-    
-    res.status(200).json(eachTemperament);
-});
+/* router.post('/dogs', async(req, res)=>{
+    const { name,min_height,max_height,min_weight,max_weight,image,min_life_span,max_life_span,temperament,createdInDB } = req.body
 
-/* 
-    en esta ruta quiero componer cada temperamento en orden alfabético y meterlo en la db, pero no me da error ni me carga la tabla...
-*/
+    const dogCreated = await Dog.create({
+        name,min_height,max_height,min_weight,max_weight,image, min_life_span, max_life_span, createdInDB
+    })
+
+    const temperamentDB = await Temperament.findAll({
+        where: { name: temperament }
+    });
+    dogCreated.addTemperament(temperamentDB)
+    res.json('Dog was properly created')
+}); */
 
 module.exports = router;

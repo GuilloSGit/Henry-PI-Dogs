@@ -29,7 +29,8 @@ conn.sync({ force: boolean }).then(() => {
   server.listen(3001, async () => {
     const allData = await axios.get(`https://api.thedogapi.com/v1/breeds`);
     const everyTemperament = allData.data.map(el => el.temperament).map(el => el?.split(', '));
-    const eachTemperament = [...new Set(everyTemperament.flat())]; /* Set = UNIQUE */
+    /* Set para hacer UNIQUE :: Stackoverflow */
+    const eachTemperament = [...new Set(everyTemperament.flat())];
     eachTemperament.forEach(el => {
       if (el) {
         Temperament.findOrCreate({

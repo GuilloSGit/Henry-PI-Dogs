@@ -14,26 +14,31 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    breed_group:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    height:{
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    weight:{
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    life_span:{
+    min_height:{
       type: DataTypes.STRING,
       allowNull: true
     },
-    origin:{
-      type: DataTypes.STRING
+    max_height:{
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    createdInDB:{
+    min_weight:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    max_weight:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    min_life_span:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    max_life_span:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    createdInDB: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true

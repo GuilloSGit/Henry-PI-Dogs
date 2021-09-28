@@ -1,16 +1,18 @@
-import { React } from "react";
-import { useState, useEffect } from 'react';
+import { Fragment, React } from "react";
+import { /* useState, */ useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { getDogs } from "../actions";
 import { Link } from 'react-router-dom';
+import DogCard from "./DogCard";
 
 export default function Home(){
+
     const dispatch = useDispatch();
-    const allDogs = useSelector((state) => state.dogs);
+    const allDogs = useSelector ((state) => state.dogs);
 
     useEffect(() => {
-        dispatch(getDogs());
-    },[])
+        dispatch(getDogs())
+    },[dispatch])
 
     function handleClick(e){
         e.preventDefault();
@@ -36,8 +38,19 @@ export default function Home(){
                 <select>
                     <option value="all">All Woooofs</option>
                     <option value="own">Your Woooofs</option>
-                    <option value="db">DB Woooofs</option>
+                    <option value="db">dataBase Woooofs</option>
                 </select>
+                {
+                    allDogs && allDogs.map(el => {
+                        return(
+                            <Fragment>
+                                <Link to={'/dogs/' + el.id}>
+                                <DogCard name={el.name} image={el.image} temperament={el.temperament} breed_group={el.breed_group} key={el.id}/>
+                                </Link>
+                            </Fragment>
+                        )
+                    })
+                }
             </div>
         </div>
     )

@@ -14,7 +14,7 @@ import Pagination from "./Pagination";
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
-  const [oreder, setOrder] = useState('');
+  const [order, setOrder] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
   const indexOfLastDog = currentPage * dogsPerPage;

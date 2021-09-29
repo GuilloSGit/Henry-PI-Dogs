@@ -10,3 +10,17 @@ export function getDogs(){
         })
     }
 }
+
+export function filterDogsByMAXWeight(payload){
+    return {
+        type: 'FILTER_BY_MAX_WEIGHT',
+        payload
+    }
+}
+
+export function filterDogsByMINWeight(payload){
+    return {
+        type: 'FILTER_BY_MIN_WEIGHT',
+        payload
+    }
+}

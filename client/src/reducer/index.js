@@ -31,7 +31,41 @@ function rootReducer(state = initialState, action){
                 ...state,
                 dogs:weightMINFiltered
             }
-
+        case 'FILTER_CREATED':
+            const allDogss = state.allDogs
+            const createdFilter = action.payload === 'created' ?
+                allDogss.filter(el => el.createdInDB) :
+                allDogss.filter(el => !el.createdInDB)
+            return{
+                ...state,
+                dogs: action.payload === 'all' ?
+                    allDogss :
+                    createdFilter
+            }
+        case 'ORDER_BY_BREED':
+            const sortedArr = action.payload === 'asc' ?
+                state.dogs.sort(function (a,b) {
+                    if(a.name > b.name) {
+                        return 1;
+                    }
+                    if(b.name > a.name) {
+                        return -1;
+                    }
+                    return 0
+                }) :
+                state.dogs.sort(function(a,b) {
+                    if(a.name > b.name) {
+                        return -1;
+                    }
+                    if(b.name > a.name) {
+                        return 1;
+                    }
+                    return 0
+                })
+            return{
+                ...state,
+                dogs: sortedArr
+            }
         default:
             return state;
     }

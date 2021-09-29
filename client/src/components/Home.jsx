@@ -1,10 +1,11 @@
-import { Fragment, React, useState } from "react";
-import { /* useState, */ useEffect } from "react";
+import { Fragment, React, useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDogs,
   filterDogsByMAXWeight,
   filterDogsByMINWeight,
+  filterCreated,
+  orderByName
 } from "../actions";
 import { Link } from "react-router-dom";
 import DogCard from "./DogCard";
@@ -13,8 +14,9 @@ import Pagination from "./Pagination";
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
+  const [oreder, setOrder] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [dogsPerPage, setDogsPerPage] = useState(8);
+  const [dogsPerPage] = useState(8);
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
@@ -47,19 +49,29 @@ export default function Home() {
     e.preventDefault();
     dispatch(filterDogsByMINWeight(e.target.value));
   }
+  function handleFilterCreated(e) {
+      e.preventDefault();
+      dispatch(filterCreated(e.target.value))
+  }
+  function handleSort(e) {
+      e.preventDefault();
+      dispatch(orderByName(e.target.value))
+      setCurrentPage(1)
+      setOrder(`Ordered ${e.target.value}`)
+  }
 
   return (
     <div>
       <Link to="/dogs">Creat a dog</Link>
-      <h1>Doguie Woooof</h1>
+      <h1>Doguie Woof</h1>
       <div>
         <div className="filtersBox">
-          <select>
+          <select onChange={(e) => handleSort(e)}>
             <option value="asc">Asc</option>
             <option value="desc">Desc</option>
           </select>
           <select onChange={(e) => handleFilteredMAXWeight(e)}>
-            <option value="all">All Woooofs</option>
+            <option value="all">All Woofs</option>
             <option value="1">1 kg</option>
             <option value="2">2 kg</option>
             <option value="3">3 kg</option>
@@ -153,7 +165,7 @@ export default function Home() {
             <option value="91">91 kg</option>
           </select>
           <select onChange={(e) => handleFilteredMINWeight(e)}>
-            <option value="all">All Woooofs</option>
+            <option value="all">All Woofs</option>
             <option value="1">1 kg</option>
             <option value="2">2 kg</option>
             <option value="3">3 kg</option>
@@ -246,10 +258,10 @@ export default function Home() {
             <option value="90">90 kg</option>
             <option value="91">91 kg</option>
           </select>
-          <select>
-            <option value="all">All Woooofs</option>
-            <option value="true">Your Woooofs</option>
-            <option value="">Woooofs dbase</option>
+          <select onChange={(e) => handleFilterCreated(e)}>
+            <option value="all">All Woofs</option>
+            <option value="created">Your Woofs</option>
+            <option value="inDB">Woofs dbase</option>
           </select>
           <button
             onClick={(e) => {
@@ -266,7 +278,6 @@ export default function Home() {
           {currentDogs?.map((el) => {
             return (
               <Fragment>
-                <Link to={"/home/" + el.id}>
                   <DogCard
                     name={el.name}
                     image={el.image}
@@ -274,7 +285,6 @@ export default function Home() {
                     breed_group={el.breed_group}
                     key={Math.floor(Math.random() * (100 - 0)) + 0}
                   />
-                </Link>
               </Fragment>
             );
           })}

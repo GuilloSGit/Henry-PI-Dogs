@@ -1,0 +1,49 @@
+.dogCard {
+  margin: 10px 3px;
+  background-color: rgb(240, 226, 226);
+  width: 19.5rem;
+  height: 350px;
+  border-radius: 4%;
+}
+
+.titleArea {
+  margin: 8px 3px;
+  min-height: 40px;
+}
+
+a {
+  color: #454545;
+  text-decoration: none;
+}
+
+.infoArea {
+  font-size: 16.5px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
+.tempArea {
+  margin:25px 15px;
+  max-width: 100%;
+}
+
+.dogTemp {
+  text-align: left;
+}
+
+.imageArea {
+  display: flex;
+  justify-content: center;
+  margin: 15px 10px 0 3px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 2%;
+}
+
+.dogImage {
+  /* display: block; */
+  top: 50%;
+  left: 50%;
+  border-radius: 2%;
+}

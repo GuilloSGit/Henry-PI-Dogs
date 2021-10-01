@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
     },
     min_weight:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     max_weight:{
       type: DataTypes.STRING,
@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
     },
     max_life_span:{
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     createdInDB: {
       type: DataTypes.BOOLEAN,

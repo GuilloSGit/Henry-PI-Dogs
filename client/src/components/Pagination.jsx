@@ -1,4 +1,4 @@
-import React from "react";
+import './Pagination.css'
 
 export default function Pagination({dogsPerPage, allDogs, pagination}) {
     const pageNumbers = []
@@ -8,13 +8,13 @@ export default function Pagination({dogsPerPage, allDogs, pagination}) {
     }
 
     return(
-        <nav>
-            <ul className='pagination'>
+        <nav className='pagination'>
+            <ul className="crumbs">
                 {
                     pageNumbers&&
                     pageNumbers.map(number => (
                         <li className='number' key={number}>
-                            <a href="##" onClick={()=> pagination(number)}>{number}</a>
+                            <a className="crumb" href="##" onClick={()=> pagination(number)}>{number}</a>
                         </li>
                     ))
                 }

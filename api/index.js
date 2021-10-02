@@ -21,7 +21,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
-const boolean = false
+const boolean = true
 
 conn.sync({ force: boolean }).then(() => {
   server.listen(3001, () => {

@@ -1,13 +1,21 @@
 .dogCard {
-  margin: 10px 3px;
-  background-color: rgb(240, 226, 226);
-  width: 19.5rem;
-  height: 350px;
+  margin: 15px 4px;
+  padding: 2px;
+  background-color: rgba(36, 138, 79, 0.253);
+  width: 19rem;
+  height: 265px;
   border-radius: 4%;
+  box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
+}
+
+.dogName{
+  margin-top: 15px;
 }
 
 .titleArea {
-  margin: 8px 3px;
+  font-size: 20px;
+  padding-top: 5px;
+  margin: 5px;
   min-height: 40px;
 }
 
@@ -20,16 +28,16 @@ a {
   font-size: 16.5px;
   display: flex;
   flex-direction: column-reverse;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .tempArea {
-  margin:25px 15px;
+  margin:10px 25px;
   max-width: 100%;
 }
 
 .dogTemp {
-  text-align: left;
+  text-align: center;
 }
 
 .imageArea {

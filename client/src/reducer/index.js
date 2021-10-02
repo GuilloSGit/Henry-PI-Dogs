@@ -1,13 +1,13 @@
 const initialState = {
-    dogs : [],
-    allDogs : [],
-    temperaments: []
+    dogs: [],
+    allDogs: [],
+    temperaments: [],
 }
 
-function rootReducer(state = initialState, action){
+function rootReducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_DOGS':
-            return{
+            return {
                 ...state,
                 dogs: action.payload,
                 allDogs: action.payload
@@ -16,27 +16,32 @@ function rootReducer(state = initialState, action){
         case 'FILTER_BY_MAX_WEIGHT':
             const allDogs = state.allDogs
             const weightMAXFiltered = action.payload === 'all' ?
-                allDogs:
-                allDogs.filter(el=>el.max_weight === action.payload)
-            return{
+                allDogs :
+                allDogs.filter(el => el.max_weight === action.payload)
+            return {
                 ...state,
-                dogs:weightMAXFiltered
+                dogs: weightMAXFiltered
             }
         case 'FILTER_BY_MIN_WEIGHT':
             const allDoguis = state.allDogs
             const weightMINFiltered = action.payload === 'all' ?
-                allDoguis:
-                allDoguis.filter(el=>el.min_weight === action.payload)
-            return{
+                allDoguis :
+                allDoguis.filter(el => el.min_weight === action.payload)
+            return {
                 ...state,
-                dogs:weightMINFiltered
+                dogs: weightMINFiltered
+            }
+        case 'GET_DOGS_BY_TEMP':
+            return {
+                ...state,
+                temperaments: action.payload
             }
         case 'FILTER_CREATED':
             const allDogss = state.allDogs
             const createdFilter = action.payload === 'created' ?
                 allDogss.filter(el => el.createdInDB) :
                 allDogss.filter(el => !el.createdInDB)
-            return{
+            return {
                 ...state,
                 dogs: action.payload === 'all' ?
                     allDogss :
@@ -44,27 +49,41 @@ function rootReducer(state = initialState, action){
             }
         case 'ORDER_BY_BREED':
             const sortedArr = action.payload === 'asc' ?
-                state.dogs.sort(function (a,b) {
-                    if(a.name > b.name) {
+                state.dogs.sort(function (a, b) {
+                    if (a.name > b.name) {
                         return 1;
                     }
-                    if(b.name > a.name) {
+                    if (b.name > a.name) {
                         return -1;
                     }
                     return 0
                 }) :
-                state.dogs.sort(function(a,b) {
-                    if(a.name > b.name) {
+                state.dogs.sort(function (a, b) {
+                    if (a.name > b.name) {
                         return -1;
                     }
-                    if(b.name > a.name) {
+                    if (b.name > a.name) {
                         return 1;
                     }
                     return 0
                 })
-            return{
+            return {
                 ...state,
                 dogs: sortedArr
+            }
+        case 'GET_NAME_DOGS':
+            return {
+                ...state,
+                dogs: action.payload
+            }
+        case 'POST_DOG':
+            return{
+                ...state,
+            }
+        case 'GET_TEMPERAMENTS':
+            return{
+                ...state,
+                temperaments:action.payload
             }
         default:
             return state;

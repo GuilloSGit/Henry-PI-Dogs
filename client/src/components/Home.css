@@ -5,6 +5,26 @@
   justify-content: center;
 }
 
+.navBar{
+  background-color: #ebf3f2;
+  border-radius: 8px;
+  margin: 10px 2px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
+}
+
+.filtersBox{
+  font-size: 25px;
+}
+
+select{
+  margin: 0 10px;
+}
+
 .dogDeployArea {
   display: flex;
   flex-direction: row;
@@ -12,5 +32,24 @@
   align-items: center;
   justify-content: space-around;
   font-size: 20px;
-  max-width: 1200px;
+  max-width: 1280px;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainTitle{
+  margin: 10px;
+  margin-bottom: 0;
+  font-size: 40px;
+}
+
+.subTitle{
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 15px;
 }

@@ -8,7 +8,7 @@ export default function Pagination({dogsPerPage, allDogs, pagination}) {
     }
 
     return(
-        <nav className='pagination'>
+        <nav>
             <ul className="crumbs">
                 {
                     pageNumbers&&

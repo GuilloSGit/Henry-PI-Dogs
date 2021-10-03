@@ -1,8 +1,7 @@
-import { Fragment, React, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDogs,
-  filterDogsByMAXWeight,
   filterDogsByMINWeight,
   filterDogsByTemperament,
   filterCreated,
@@ -27,7 +26,6 @@ export default function Home() {
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
 
   /***********************/
-
   // Pág 1 slice(0,8)
   // Pág 2 slice(8,16)
   // Pág 3 slice(16,24) ...
@@ -52,11 +50,7 @@ export default function Home() {
     e.preventDefault();
     dispatch(filterDogsByTemperament(e.target.value));
   }
-  function handleFilteredMAXWeight(e) {
-    e.preventDefault();
-    dispatch(filterDogsByMAXWeight(e.target.value));
-  }
-  function handleFilteredMINWeight(e) {
+   function handleFilteredMINWeight(e) {
     e.preventDefault();
     dispatch(filterDogsByMINWeight(e.target.value));
   }
@@ -87,16 +81,6 @@ export default function Home() {
                 temperaments.map((temperament) =>{
                   return(
                     <option value={temperament} key={temperament}>{temperament}</option>
-                  )
-                })
-              }
-            </select>
-            <select onChange={(e) => handleFilteredMAXWeight(e)}>
-              <option value="all">Max ⚖️</option>
-              {
-                allDogs.map((dog) =>{
-                  return(
-                    <option value={dog.max_weight} key={dog.id}>{dog.max_weight} kg</option>
                   )
                 })
               }

@@ -1,13 +1,13 @@
 const { Router } = require('express');
-const { Op } = require ('sequelize');
+const { Op } = require('sequelize');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios')
 const { Temperament, Dog } = require('../db');
 const router = Router();
-const URL = `https://api.thedogapi.com/v1/breeds`;
-require('dotenv').config();
 const { API_KEY } = process.env;
+const URL = `https://api.thedogapi.com/v1/breeds?${API_KEY}`;
+require('dotenv').config();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -22,12 +22,9 @@ const getApiInfoDog = async () => {
             image: e.image.url,
             breed_group: e.breed_group,
             temperament: e.temperament,
-            min_height: (e.height.metric.slice(0, 2).trim()),
-            max_height: (e.height.metric.slice(4, 7).trim()),
-            min_weight: (e.weight.metric.slice(0, 2).trim()),
-            max_weight: (e.weight.metric.slice(4, 7).trim()),
-            min_life_span: (e.life_span.slice(0, 2).trim()),
-            max_life_span: (e.life_span.slice(4, 7).trim()),
+            height: e.height.metric,
+            weight: e.weight.metric,
+            life_span: e.life_span,
         };
     });
     return apiInfo;
@@ -69,10 +66,15 @@ router.get('/dogs', async (req, res) => {
 
 
 router.post('/dog', async (req, res) => {
-    const { name, min_height, max_height, min_weight, max_weight, image, min_life_span, max_life_span, temperament, createdInDB } = req.body
-    
+    const { name, height, weight, image, life_span, temperament, createdInDB } = req.body
+
     const dogCreated = await Dog.create({
-        name: name, min_height: min_height, max_height: max_height, min_weight: min_weight, max_weight: max_weight, image: image, min_life_span: min_life_span, max_life_span: max_life_span, createdInDB: createdInDB
+        name: name,
+        height: height,
+        weight: weight,
+        image: image,
+        life_span: life_span,
+        createdInDB: createdInDB
     })
 
     const temperamentDB = await Temperament.findAll({
@@ -84,62 +86,79 @@ router.post('/dog', async (req, res) => {
 
 router.get('/temperaments', async (req, res) => {
     const allData = await axios.get(URL);
-    const everyTemperament = allData.data.map(dog => dog.temperament?dog.temperament:"No info").map(dog => dog?.split(', '));
+    const everyTemperament = allData.data.map(dog => dog.temperament ? dog.temperament : "No info").map(dog => dog?.split(', '));
     /* Set para hacer UNIQUE :: Stackoverflow */
     const eachTemperament = [...new Set(everyTemperament.flat())];
     eachTemperament.forEach(el => {
         if (el) { // temperament : ,
             Temperament.findOrCreate({
-                where: {name: el}
+                where: { name: el }
             })
         }
     });
     res.status(200).json(eachTemperament);
 })
 
-router.get('/temperament', async(req, res)=>{
+router.get('/max-weights', async (req, res) => {
+    const allDogs = await getAllDogs();
+    const dogsWeights = allDogs.map((dog) => {
+        var weights = []
+        if (dog.weight) {
+            weights.push((dog.weight.slice(dog.weight.length - 2, dog.weight.length)).trim())
+        }
+        weightsNums = parseInt(weights)
+        return weightsNums
+    });
+    var everyDogWeight = dogsWeights.sort(function(a, b){return a-b}).reduce((unique, item) =>{
+        return unique.includes(item) ? unique : [...unique, item]
+    },[])
+    res.status(200).json(everyDogWeight)
+});
+
+router.get('/breedGroups', async (req, res) => {
+    const everyDog = await getAllDogs();
+    const everyBreedGroup = everyDog.map((dog) => {
+        if (dog.breed_group !== undefined) {
+            return dog.breed_group
+        }
+    });
+    const eachBreedGroup = [...new Set(everyBreedGroup.flat())]
+    res.status(200).json(eachBreedGroup)
+});
+
+router.get('/breedGroup', async (req, res) => {
+    const breedGroup = req.query.breedGroup;
+    const everyDog = await getAllDogs();
+    const dogSearchResult = everyDog.filter((dog) => {
+        if (dog.breed_group !== undefined) { return (dog.breed_group.toLowerCase()).includes(breedGroup.toLowerCase()) }
+    });
+    res.status(200).json(dogSearchResult)
+});
+router.get('/temperament', async (req, res) => {
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
-        if(dog.temperament !== undefined){ return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase())}
+        if (dog.temperament !== undefined) { return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase()) }
     });
     res.status(200).json(dogSearchResult)
 });
 
-router.get('/maxWeight', async(req, res)=>{
-    const maxWeight = req.query.maxWeight;
-    const everyDog = await getAllDogs();
-    const dogSearchResult = everyDog.filter((dog) => {
-        if(dog.max_weight !== undefined){ return parseInt(dog.max_weight) < parseInt(maxWeight)}
-    });
-    res.status(200).json(dogSearchResult)
-});
 
-router.get('/minWeight', async(req, res)=>{
-    const minWeight = req.query.minWeight;
-    const everyDog = await getAllDogs();
-    const dogSearchResult = everyDog.filter((dog) => {
-        if(dog.max_weight !== undefined){ return parseInt(dog.min_weight) > parseInt(minWeight)}
+router.get('/min-heights', async (req, res) => {
+    const allDogs = await getAllDogs();
+    const dogsHeights = allDogs.map((dog) => {
+        var heights = []
+        if (dog.height) {
+            heights = dog.height.slice(0,2)
+            console.log(heights)
+        }
+        heightsNums = parseInt(heights)
+        return heightsNums
     });
-    res.status(200).json(dogSearchResult)
-});
-
-router.get('/maxHeight', async(req, res)=>{
-    const maxHeight = req.query.maxHeight;
-    const everyDog = await getAllDogs();
-    const dogSearchResult = everyDog.filter((dog) => {
-        if(dog.max_height !== undefined){ return parseInt(dog.max_height) < parseInt(maxHeight)}
-    });
-    res.status(200).json(dogSearchResult)
-});
-
-router.get('/minHeight', async(req, res)=>{
-    const minHeight = req.query.minHeight;
-    const everyDog = await getAllDogs();
-    const dogSearchResult = everyDog.filter((dog) => {
-        if(dog.max_height !== undefined){ return parseInt(dog.min_height) > parseInt(minHeight)}
-    });
-    res.status(200).json(dogSearchResult)
+    var everyDogHeight = dogsHeights.sort(function(a, b){return a-b}).reduce((unique, item) =>{
+        return unique.includes(item) ? unique : [...unique, item]
+    },[])
+    res.status(200).json(everyDogHeight)
 });
 
 router.get('/dogs/:idRaza', async (req, res) => {

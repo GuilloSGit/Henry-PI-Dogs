@@ -13,7 +13,8 @@ export default function DogCard({ name, image, temperament, breed_group, id, ori
         <hr />
         <div className="infoArea">
           <div className="tempArea">
-            <h5 className="dogTemp">Breed-group: {breed_group}</h5>
+          { breed_group? <h5 className="dogTemp">Breed-group: {breed_group}</h5>:<br/>
+          }
           </div>
           <div className="imageArea">
             <img

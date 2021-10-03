@@ -127,7 +127,10 @@ export default function DogCreation() {
           />
         </div>
         <div>
-            <label>Breed </label>
+            <label>Breed</label>
+            <label>
+              <input type="radio" name="" />
+            </label>
         </div>
         <select multiple>
           {temperaments.map((temperaments) => {

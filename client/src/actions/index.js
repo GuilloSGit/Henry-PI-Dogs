@@ -17,6 +17,20 @@ export function getTemperaments(){
     }
 }
 
+export function filterDogsByTemperament(payload){
+    return async function(dispatch){
+        try {
+            var json = await axios.get(`http://localhost:3001/temperament?temperament=${payload}`); 
+            return dispatch({
+                type: 'GET_DOGS_BY_TEMP',
+                payload:json.data
+            })  
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function postDog(payload){
     return async function(dispatch){
         const json = await axios.post('http://localhost:3001/dog', payload);
@@ -52,19 +66,6 @@ export function getDogsByName(payload){
     }
 }
 
-export function filterDogsByTemperament(payload){
-    return async function(dispatch){
-        try {
-            var json = await axios.get(`http://localhost:3001/temperament?temperament=${payload}`); 
-            return dispatch({
-                type: 'GET_DOGS_BY_TEMP',
-                payload:json.data
-            })  
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
 
 export function filterCreated(payload){
     return {

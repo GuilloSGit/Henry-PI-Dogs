@@ -13,15 +13,6 @@ function rootReducer(state = initialState, action) {
                 allDogs: action.payload
             }
 
-        case 'FILTER_BY_MAX_WEIGHT':
-            const allDogs = state.allDogs
-            const weightMAXFiltered = action.payload === 'all' ?
-                allDogs :
-                allDogs.filter(el => el.max_weight === action.payload)
-            return {
-                ...state,
-                dogs: weightMAXFiltered
-            }
         case 'FILTER_BY_MIN_WEIGHT':
             const allDoguis = state.allDogs
             const weightMINFiltered = action.payload === 'all' ?
@@ -31,11 +22,13 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 dogs: weightMINFiltered
             }
+
         case 'GET_DOGS_BY_TEMP':
             return {
                 ...state,
                 dogs: action.payload
             }
+
         case 'FILTER_CREATED':
             const allDogss = state.allDogs
             const createdFilter = action.payload === 'created' ?
@@ -44,9 +37,9 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 dogs: action.payload === 'all' ?
-                    allDogss :
-                    createdFilter
+                    allDogss : createdFilter
             }
+
         case 'ORDER_BY_BREED':
             const sortedArr = action.payload === 'asc' ?
                 state.dogs.sort(function (a, b) {
@@ -71,6 +64,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 dogs: sortedArr
             }
+
         case 'GET_NAME_DOGS':
             return {
                 ...state,

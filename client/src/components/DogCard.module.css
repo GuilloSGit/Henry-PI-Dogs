@@ -1,7 +1,7 @@
 .dogCard {
   margin: 30px 4px;
   padding: 2px;
-  background-color: rgba(36, 138, 79, 0.253);
+  background-color: rgb(169, 216, 214);
   width: 19rem;
   height: 265px;
   border-radius: 4%;
@@ -46,7 +46,7 @@ a {
   margin: 15px 10px 0 3px;
   max-width: 100%;
   overflow: hidden;
-  border-radius: 2%;
+  border-radius: 4%;
 }
 
 .dogImage {

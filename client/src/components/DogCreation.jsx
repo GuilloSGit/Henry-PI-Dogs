@@ -64,7 +64,7 @@ return(
                 <label>Image</label>
                 <input type="text" value={input.image} name="image" />
             </div>
-            <select>
+            <select multiple>
                 {
                 temperaments.map((temperaments)=>{
                     if(temperaments){

@@ -3,7 +3,6 @@ import axios from 'axios';
 export function getDogs(){
     return async function(dispatch){
         var json = await axios.get("http://localhost:3001/dogs",{});
-        
         return dispatch({
             type: 'GET_DOGS',
             payload: json.data
@@ -56,7 +55,7 @@ export function getDogsByName(payload){
 export function filterDogsByTemperament(payload){
     return async function(dispatch){
         try {
-            var json = await axios.post.get(`http://localhost:3001/temperament?temperament=${payload}`); 
+            var json = await axios.get(`http://localhost:3001/temperament?temperament=${payload}`); 
             return dispatch({
                 type: 'GET_DOGS_BY_TEMP',
                 payload:json.data

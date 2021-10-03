@@ -1,13 +1,14 @@
 .crumbs {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   list-style-type: none;
   gap: 0.2rem;
 }
 
 .crumb {
+  margin: 20px 5px;
   font-size: 15px;
   width: 32px;
   display: block;

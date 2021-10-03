@@ -144,15 +144,13 @@ export default function Home() {
           <div className="dogDeployArea">
             {currentDogs?.map((el) => {
               return (
-                <Fragment>
-                  <DogCard
+                  <DogCard className="dogaCard"
                     name={el.name}
                     image={el.image? el.image : el.image}
                     temperament={el.temperament}
                     breed_group={el.breed_group}
                     key={el.id}
                   />
-                </Fragment>
               );
             })}
           </div>

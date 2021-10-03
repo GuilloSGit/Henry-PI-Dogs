@@ -87,7 +87,6 @@ router.get('/temperaments', async (req, res) => {
     const everyTemperament = allData.data.map(dog => dog.temperament?dog.temperament:"No info").map(dog => dog?.split(', '));
     /* Set para hacer UNIQUE :: Stackoverflow */
     const eachTemperament = [...new Set(everyTemperament.flat())];
-    console.log(eachTemperament)
     eachTemperament.forEach(el => {
         if (el) { // temperament : ,
             Temperament.findOrCreate({
@@ -147,7 +146,7 @@ router.get('/dogs/:idRaza', async (req, res) => {
     const { idRaza } = req.params;
     const allDogs = await getAllDogs();
     if (!idRaza) {
-        res.status(404).json("Couldn't find the breed group")
+        res.status(404).json("Couldn't find the name on DBase")
     } else {
         const dog = allDogs.filter(dogui => dogui.id.toString() === idRaza);
         res.status(200).json(dog)

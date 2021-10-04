@@ -5,23 +5,25 @@
   justify-content: center;
 }
 
-.navBar{
+.navBar {
   background-color: rgb(169, 216, 214);
   border-radius: 8px;
   margin: 10px 2px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
-}
-
-.filtersBox{
+  box-shadow: 6px 7px 8px -6px rgba(69, 69, 69, 0.7);
   font-size: 18px;
 }
 
-select{
+.filtersBox {
+  font-size: 18px;
+}
+
+select {
   margin: 0 10px;
 }
 
@@ -35,21 +37,48 @@ select{
   max-width: 1280px;
 }
 
-.buttons{
+.buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.mainTitle{
+.mainTitle {
+  background: #3ee64c;
+  background: -webkit-radial-gradient(
+    ellipse farthest-side at bottom center,
+    #34d1ad 18%,
+    #00ff00 0%,
+    #28c7b7 90%
+  );
+  background: -moz-radial-gradient(
+    ellipse farthest-side at bottom center,
+    #34d1ad 18%,
+    #00ff00 0%,
+    #28c7b7 90%
+  );
+  background: radial-gradient(
+    ellipse farthest-side at bottom center,
+    #34d1ad 18%,
+    #00ff00 0%,
+    #28c7b7 90%
+  );
+  background-clip: content-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
   margin: 10px;
   margin-bottom: 0;
-  font-size: 40px;
+  font-size: 60px;
+  text-shadow: 1px 1px 2px rgba(69, 69, 69, 0.7);
 }
 
-.subTitle{
-  font-size: 20px;
+.subTitle {
+  color: rgb(248, 126, 26);
+  font-weight: 500;
+  font-size: 25px;
   margin: 0;
   margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(69, 69, 69, 0.7);
 }

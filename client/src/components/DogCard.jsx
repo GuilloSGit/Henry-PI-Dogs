@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styles from "./DogCard.module.css";
 
 export default function DogCard({ id, name, image, breed_group }) {
-  console.log(id, name, breed_group);
   return (
     <Fragment>
       <div className={styles.dogCard}>

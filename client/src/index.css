@@ -7,11 +7,6 @@
   font-size: 1em;
 }
 
-html{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 body {
   background: url('./bones\ by\ Guille.png');
@@ -21,9 +16,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}

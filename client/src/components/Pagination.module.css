@@ -1,8 +1,8 @@
 .crumbs {
-  margin-left: 5px;
+  margin: 15px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   list-style-type: none;
   gap: 0.2rem;
@@ -24,9 +24,6 @@
 
 .crumb:hover, .crumb__active {
   background-color: #1d1e20;
-  color: #ec2929;
+  color: #f5f9ff;
   border-color: #1d1f20;
 }
-
-.crumb__prev { margin-right: 0.5rem; cursor: w-resize; }
-.crumb__next { margin-left: 0.5rem; cursor: e-resize; }

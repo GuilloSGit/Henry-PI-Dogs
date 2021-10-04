@@ -113,7 +113,7 @@ export default function Home() {
                 }}
               >
                 <span className="material-icons refresh">loop</span>
-                <span className="tooltiptext">Refresh all</span>
+                <span className="tooltiptext">Reset all</span>
               </div>
             </div>
           </div>

@@ -26,7 +26,7 @@ function rootReducer(state = initialState, action) {
         case 'GET_DOGS_BY_TEMP':
             return {
                 ...state,
-                dogs: action.payload
+                allDoguis: action.payload
             }
 
         case 'FILTER_CREATED':

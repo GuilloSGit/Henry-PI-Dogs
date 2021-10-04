@@ -1,17 +1,17 @@
 const { Router } = require('express');
-const { Op } = require('sequelize');
+
+const axios = require('axios')
+const router = Router();
+require('dotenv').config();
+const { API_KEY } = process.env;
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const axios = require('axios')
-const { Temperament, Dog } = require('../db');
-const router = Router();
-const { API_KEY } = process.env;
 const URL = `https://api.thedogapi.com/v1/breeds?${API_KEY}`;
-require('dotenv').config();
+
+const { Temperament, Dog } = require('../db');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-// router.use('/dogs', dogs)
 
 const getApiInfoDog = async () => {
     const apiURL = await axios.get(URL);
@@ -22,9 +22,9 @@ const getApiInfoDog = async () => {
             image: e.image.url,
             breed_group: e.breed_group,
             temperament: e.temperament,
-            height: e.height.metric,
-            weight: e.weight.metric,
-            life_span: e.life_span,
+            // height: e.height.metric,
+            // weight: e.weight.metric,
+            // life_span: e.life_span,
         };
     });
     return apiInfo;
@@ -49,26 +49,18 @@ const getAllDogs = async () => {
     return infoTotal;
 };
 
-router.get('/dogs', async (req, res) => {
-    const name = req.query.name;
-    let dogsTotal = await getAllDogs();
-    if (name) { /* Si entra un query */
-        let dogName = await dogsTotal.filter(
-            elem => elem.name.toLowerCase().includes(name.toLowerCase())
-        );
-        dogName.length ?
-            res.status(200).send(dogName) :
-            res.status(404).send("Cann't find the breed you are looking for")
-    } else { /* Si no hay query en la URL */
-        res.status(200).json(dogsTotal)
-    }
-});
-
-
 router.post('/dog', async (req, res) => {
-    const { name, height, weight, image, life_span, temperament, createdInDB } = req.body
+    const { name,
+        height,
+        weight,
+        image,
+        life_span,
+        temperament,
+        createdInDB
+    } = req.body
 
-    const dogCreated = await Dog.create({
+    const createDog = await Dog.create({
+        id: uuidv4(),
         name: name,
         height: height,
         weight: weight,
@@ -78,11 +70,29 @@ router.post('/dog', async (req, res) => {
     })
 
     const temperamentDB = await Temperament.findAll({
-        where: { name: temperament }
+        where: { name: temperament },
+        attributes: ['id']
     });
-    dogCreated.addTemperament(temperamentDB)
+    createDog.addTemperament(temperamentDB)
     res.status(202).send('Dog was properly created')
 });
+
+router.get('/dogs', async (req, res) => {
+    const name = req.query.name;
+    let dogsTotal = await getAllDogs();
+    if (name) { /* Si entra un query */
+        let dogName = await dogsTotal.filter(
+            dog => dog.name.toLowerCase().includes(name.toLowerCase())
+        );
+        dogName.length ?
+            res.status(200).send(dogName) :
+            res.status(404).send("Cann't find the dog with the name you are looking for")
+    } else { /* Si no hay query en la URL */
+        res.status(200).json(dogsTotal)
+    }
+});
+
+
 
 router.get('/temperaments', async (req, res) => {
     const allData = await axios.get(URL);
@@ -96,6 +106,7 @@ router.get('/temperaments', async (req, res) => {
             })
         }
     });
+    eachTemperament.sort()
     res.status(200).json(eachTemperament);
 })
 
@@ -138,7 +149,7 @@ router.get('/temperament', async (req, res) => {
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
-        if (dog.temperament !== undefined) { return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase()) }
+       if (dog.temperament !== undefined) { return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase()) }
     });
     res.status(200).json(dogSearchResult)
 });

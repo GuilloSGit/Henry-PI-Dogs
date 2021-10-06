@@ -1,0 +1,13 @@
+.logo{
+    width: 50px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 15px;
+}

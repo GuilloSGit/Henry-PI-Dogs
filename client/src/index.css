@@ -7,8 +7,12 @@
   font-size: 1em;
 }
 
-
 body {
+  background-image: url('../src/assets/puds.svg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;

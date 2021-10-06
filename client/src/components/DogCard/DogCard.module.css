@@ -1,0 +1,57 @@
+.dogCard {
+    margin: 30px 4px;
+    padding: 2px;
+    background-color: rgb(169, 216, 214);
+    width: 19rem;
+    height: 265px;
+    border-radius: 4%;
+    box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
+  }
+  
+  .dogName{
+    margin-top: 15px;
+  }
+  
+  .titleArea {
+    font-size: 20px;
+    padding-top: 5px;
+    margin: 5px;
+    min-height: 40px;
+  }
+  
+  a {
+    color: #454545;
+    text-decoration: none;
+  }
+  
+  .infoArea {
+    font-size: 16.5px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+  
+  .tempArea {
+    margin:10px 25px;
+    max-width: 100%;
+  }
+  
+  .dogTemp {
+    text-align: center;
+  }
+  
+  .imageArea {
+    display: flex;
+    justify-content: center;
+    margin: 15px 10px 0 3px;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 4%;
+  }
+  
+  .dogImage {
+    /* display: block; */
+    top: 50%;
+    left: 50%;
+    border-radius: 2%;
+  }

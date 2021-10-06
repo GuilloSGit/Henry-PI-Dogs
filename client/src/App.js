@@ -1,19 +1,14 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import LandingPage from './components/LandingPage'
-import Home from './components/Home'
-import DogCreation from './components/DogCreation';
-import Details from './components/Details';
-
+import LandingPage from './components/LandingPage/LandingPage'
+import Home from './components/Home/Home'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div>
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route path='/home' component={Home} />
-          <Route path='/dog' component={DogCreation} />
-          {/* <Route path='/dogs/:idRaza' component={Details} /> */}
         </Switch>
       </div>
     </BrowserRouter>

@@ -29,7 +29,7 @@ temperaments.get('/temperament', async (req, res) => {
     }
 });
 
-temperaments.get('/dog/', async (req, res) => {
+temperaments.get('/dog/',/* http://localhost:3001/dog/?temperament=active */ async (req, res) => {
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {

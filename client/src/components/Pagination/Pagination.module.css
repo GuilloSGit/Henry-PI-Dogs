@@ -1,0 +1,29 @@
+.crumbs {
+  margin: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  gap: 0.2rem;
+}
+
+.crumb {
+  margin: 20px 5px;
+  font-size: 20px;
+  width: 32px;
+  display: block;
+  padding: 0.5rem .3rem;
+  text-decoration: none;
+  color: currentColor;
+  background-color: rgb(169, 216, 214);
+  border-radius: 0.2rem;
+  border: 0.0625rem solid #d7d7d7; /* 1px */
+  box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
+}
+
+.crumb:hover, .crumb__active {
+  background-color: #1d1e20;
+  color: #f5f9ff;
+  border-color: #1d1f20;
+}

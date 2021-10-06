@@ -24,6 +24,7 @@ const bool = false;
 // Syncing all the models at once.
 conn.sync({ force: bool }).then(() => {
   server.listen(3001, () => {
+    
     console.log('%s listening at http://localhost:3001'); // eslint-disable-line no-console
   });
 });

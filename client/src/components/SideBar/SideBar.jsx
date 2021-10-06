@@ -1,14 +1,25 @@
-import React, { Fragment } from "react";
-import { useDispatch } from "react-redux";
-import { getDogs } from "../../redux/actions/index";
+import {React,  Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDogs, getTemperaments, filterDogsByTemperament } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
 
 export default function SideBar() {
   const dispatch = useDispatch();
+  const temperaments = useSelector((state) => state.temperaments);
+
+  useEffect(() => {
+    dispatch(getDogs());
+    dispatch(getTemperaments());
+  }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
+  }
+
+  function handleFilteredByTemp(e) {
+    e.preventDefault();
+    dispatch(filterDogsByTemperament(e.target.value));
   }
 
   return (
@@ -31,6 +42,32 @@ export default function SideBar() {
               <option value="asc">A - Z</option>
               <option value="desc">Z - A</option>
           </select>
+        </div>
+        <div>
+          <h6>Filter by temperament</h6>
+          <select onChange={(e) => handleFilteredByTemp(e)}>
+              <option value="all">All Temperaments</option>
+              {
+                temperaments.map((temperament) =>{
+                  return(
+                    <option value={temperament} key={temperament}>{temperament}</option>
+                  )
+                })
+              }
+            </select>
+        </div>
+        <div>
+          <h6>Filter by breed</h6>
+          <select onChange={(e) => handleFilteredByTemp(e)}>
+              <option value="all">All Breeds</option>
+              {
+                temperaments.map((temperament) =>{
+                  return(
+                    <option value={temperament} key={temperament}>{temperament}</option>
+                  )
+                })
+              }
+            </select>
         </div>
         <div>
           <h6>Filter by max weight</h6>

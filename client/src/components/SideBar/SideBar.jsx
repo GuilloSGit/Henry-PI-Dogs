@@ -1,15 +1,26 @@
-import {React,  Fragment, useEffect } from "react";
+import { React, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogs, getTemperaments, filterDogsByTemperament } from "../../redux/actions/index";
+import { Link } from "react-router-dom";
+import {
+  getDogs,
+  getTemperaments,
+  getBreeds,
+  filterDogsByTemperament,
+  filterDogsByBreed,
+  filterCreated,
+  orderByName,
+} from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
 
 export default function SideBar() {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
+  const breeds = useSelector((state) => state.breeds);
 
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
+    dispatch(getBreeds());
   }, [dispatch]);
 
   function handleClick(e) {
@@ -17,9 +28,24 @@ export default function SideBar() {
     dispatch(getDogs());
   }
 
+  function handleSort(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+  }
+
   function handleFilteredByTemp(e) {
     e.preventDefault();
     dispatch(filterDogsByTemperament(e.target.value));
+  }
+
+  function handleFilterCreated(e) {
+    e.preventDefault();
+    dispatch(filterCreated(e.target.value));
+  }
+
+  function handleFilteredByBreed(e) {
+    e.preventDefault();
+    dispatch(filterDogsByBreed(e.target.value));
   }
 
   return (
@@ -38,49 +64,57 @@ export default function SideBar() {
         <hr />
         <div>
           <h6>Filter by name</h6>
-          <select name="" id="">
-              <option value="asc">A - Z</option>
-              <option value="desc">Z - A</option>
+          <select onChange={(e) => handleSort(e)}>
+            <option value="asc">A - Z</option>
+            <option value="desc">Z - A</option>
           </select>
         </div>
         <div>
           <h6>Filter by temperament</h6>
           <select onChange={(e) => handleFilteredByTemp(e)}>
-              <option value="all">All Temperaments</option>
-              {
-                temperaments.map((temperament) =>{
-                  return(
-                    <option value={temperament} key={temperament}>{temperament}</option>
-                  )
-                })
-              }
-            </select>
+            <option value="all">All Temperaments</option>
+            {temperaments.map((temperament) => {
+              return (
+                <option value={temperament} key={temperament}>
+                  {temperament}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div>
           <h6>Filter by breed</h6>
-          <select onChange={(e) => handleFilteredByTemp(e)}>
-              <option value="all">All Breeds</option>
-              {
-                temperaments.map((temperament) =>{
-                  return(
-                    <option value={temperament} key={temperament}>{temperament}</option>
-                  )
-                })
-              }
-            </select>
+          <select onChange={(e) => handleFilteredByBreed(e)}>
+            <option value="all">All Breeds</option>
+            {breeds.map((breed) => {
+              if (!breed) return (breed = "NOTHING");
+              else return <option value={breed}>{breed}</option>;
+            })}
+          </select>
+        </div>
+        <div>
+        <h6>Filter by source</h6>
+          <select onChange={(e) => handleFilterCreated(e)}>
+            <option value="all">All 🐶</option>
+            <option value="created">Yours 🐶</option>
+            <option value="inDB">dbase 🐶</option>
+          </select>
         </div>
         <div>
           <h6>Filter by max weight</h6>
-          <input type='range' name='kilograms' list='kgList'/>
+          <input type="range" name="kilograms" list="kgList" />
           <datalist>
-              <option value='1' />
-              <option value='5'/>
-              <option value='10'/>
-              <option value='20'/>
-              <option value='40'/>
-              <option value='60'/>
-              <option value='100'/>
+            <option value="1" />
+            <option value="5" />
+            <option value="10" />
+            <option value="20" />
+            <option value="40" />
+            <option value="60" />
+            <option value="100" />
           </datalist>
+        </div>
+        <div>
+        <Link to='/dog'><button>Create a dog</button></Link>
         </div>
       </div>
     </Fragment>

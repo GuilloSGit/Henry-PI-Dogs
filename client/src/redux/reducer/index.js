@@ -26,7 +26,36 @@ function rootReducer(state = initialState, action) {
                 temperaments: action.payload
             }
 
-        case 'ORDER_BY_BREED':
+        case 'GET_BREEDS':
+            return {
+                ...state,
+                breeds: action.payload
+            }
+
+        case 'FILTER_DOGS_BY_BREED':
+            return {
+                ...state,
+                allDogs: action.payload
+            }
+
+        case 'FILTER_CREATED':
+            const allDogss = state.allDogs
+            const createdFilter = action.payload === 'created' ?
+                allDogss.filter(el => el.createdInDB) :
+                allDogss.filter(el => !el.createdInDB)
+            return {
+                ...state,
+                dogs: action.payload === 'all' ?
+                    allDogss : createdFilter
+            }
+
+        case 'GET_NAME_DOGS':
+            return {
+                ...state,
+                dogs: action.payload
+            }
+
+        case 'ORDER_BY_NAME':
             const sortedArr = action.payload === 'asc' ?
                 state.dogs.sort(function (a, b) {
                     if (a.name > b.name) {

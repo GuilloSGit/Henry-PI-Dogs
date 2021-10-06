@@ -12,9 +12,9 @@ const getApiInfoDog = async () => {
             image: e.image.url,
             breed_group: e.breed_group,
             temperament: e.temperament,
-            // height: e.height.metric,
-            // weight: e.weight.metric,
-            // life_span: e.life_span,
+            life_span: e.life_span,
+            weight: e.weight.metric,
+            height: e.height.metric,
         };
     });
     return apiInfo;

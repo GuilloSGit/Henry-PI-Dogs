@@ -31,17 +31,17 @@ dogs.post('/dog', async (req, res) => {
         name,
         height,
         weight,
-        image,
         life_span,
         temperament,
         createdInDB
     } = req.body
     const createDog = await Dog.create({
         name: name,
-        height: height,
+        height:height,
         weight: weight,
-        image: image,
+        image: `https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg`,
         life_span: life_span,
+        temperament:temperament,
         createdInDB: createdInDB
     })
     const temperamentDB = await Temperament.findAll({

@@ -1,0 +1,47 @@
+.searchBarObject {
+    margin: 15px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .addDog,
+  .refresh {
+    font-size: 35px;
+    margin: 5px;
+    padding: 5px;
+  }
+  .addDog:hover,
+  .refresh:hover {
+    color: white;
+    background-color: #454545;
+    cursor: pointer;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    font-size: 18px;
+    top:60px;
+    left:-50%;
+    visibility: hidden;
+    width: 150px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+  
+  .input{
+    line-height: 2.05;
+  }

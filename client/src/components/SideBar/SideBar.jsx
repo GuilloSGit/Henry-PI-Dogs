@@ -50,16 +50,18 @@ export default function SideBar() {
 
   return (
     <Fragment>
-      <div className={styles.nav}>
+      <div className={styles.side}>
         <div className={styles.sideBarHeader}>
-          <h4> Find by filters:</h4>
-          <button
+          <h4 className={styles.header}> Find by filters:</h4>
+          <div
+            className={styles.tooltip}
             onClick={(e) => {
               handleClick(e);
             }}
           >
-            Refresh
-          </button>
+            <span className="material-icons refresh">loop</span>
+            <span className={styles.tooltiptext}>Reset all</span>
+          </div>
         </div>
         <hr />
         <div>
@@ -70,13 +72,21 @@ export default function SideBar() {
           </select>
         </div>
         <div>
+          <h6>Filter by source</h6>
+          <select onChange={(e) => handleFilterCreated(e)}>
+            <option value="all">All 🐶</option>
+            <option value="created">Yours 🐶</option>
+            <option value="inDB">dbase 🐶</option>
+          </select>
+        </div>
+        <div>
           <h6>Filter by temperament</h6>
           <select onChange={(e) => handleFilteredByTemp(e)}>
             <option value="all">All Temperaments</option>
-            {temperaments.map((temperament) => {
+            {temperaments.map((el) => {
               return (
-                <option value={temperament} key={temperament}>
-                  {temperament}
+                <option value={el.name} key={el.id}>
+                  {el.name}
                 </option>
               );
             })}
@@ -88,44 +98,50 @@ export default function SideBar() {
             <option value="all">All Breeds</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
-              else return <option value={breed} key={breed}>{breed}</option>;
-            })
-            }
+              else
+                return (
+                  <option value={breed} key={breed}>
+                    {breed}
+                  </option>
+                );
+            })}
           </select>
         </div>
         <div>
-          <h6>Filter by source</h6>
-          <select onChange={(e) => handleFilterCreated(e)}>
-            <option value="all">All 🐶</option>
-            <option value="created">Yours 🐶</option>
-            <option value="inDB">dbase 🐶</option>
-          </select>
-        </div>
-        {/* <div>
-          <h6>Filter by max weight</h6> 
+          <h6>Filter by max weight</h6>
           <select onChange={(e) => handleFilteredByBreed(e)}>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
-              else return <option value={breed} key={breed}>{breed}</option>;
-            })
-            }
+              else
+                return (
+                  <option value={breed} key={breed}>
+                    {breed}
+                  </option>
+                );
+            })}
           </select>
         </div>
         <div>
-          <h6>Filter by min weight</h6> 
+          <h6>Filter by min weight</h6>
           <select onChange={(e) => handleFilteredByBreed(e)}>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
-              else return <option value={breed} key={breed}>{breed}</option>;
-            })
-            }
+              else
+                return (
+                  <option value={breed} key={breed}>
+                    {breed}
+                  </option>
+                );
+            })}
           </select>
-        </div> */}
+        </div>
         <div>
-          <Link to="/dog">
-            <button>Create a dog</button>
+          <h6>Add a Woof</h6>
+          <Link to="/dog" className={styles.tooltip}>
+            <span className="material-icons" classname={styles.addDog}>add_circle</span>
+            <span className={styles.tooltiptext}>Add your Woof 🐕</span>
           </Link>
         </div>
       </div>

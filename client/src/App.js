@@ -7,7 +7,7 @@ import DogCreation from './components/DogCreation/DogCreation';
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="Guille">
         <Route exact path='/' component={LandingPage} />
         <Route path='/home' component={Home} />
         <Route path='/dog/:dogID' component={DogDetail} />

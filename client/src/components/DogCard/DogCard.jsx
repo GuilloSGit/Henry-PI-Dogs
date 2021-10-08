@@ -10,7 +10,6 @@ export default function DogCard({id,name,image,temperament}) {
           <div className={styles.titleArea}>
             <h4 className={styles.dogName}>{name}</h4>
           </div>
-          <hr />
           <div className={styles.infoArea}>
             <div className={styles.tempArea}>
               {temperament ? (

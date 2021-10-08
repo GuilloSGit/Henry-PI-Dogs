@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import DogCard from "../DogCard/DogCard";
 import Pagination from "../Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDogs } from "../../redux/actions";
+import styles from "./DogArea.module.css";
 
 export default function DogArea() {
   const dispatch = useDispatch();
@@ -23,20 +24,23 @@ export default function DogArea() {
   }, [dispatch]);
 
   return (
-    <div>
-      {currentDogs.map((el) => (
-        <DogCard
-          key={el.id}
-          name={el.name}
-          image={el.image}
-          temperament={el.temperament}
+    <Fragment>
+      <div className={styles.dogsArea}>
+        <Pagination
+          dogsPerPage={dogsPerPage}
+          allDogs={allDogs.length}
+          pagination={pagination}
         />
-      ))}
-      <Pagination
-        dogsPerPage={dogsPerPage}
-        allDogs={allDogs.length}
-        pagination={pagination}
-      />
-    </div>
+        <div className={styles.pagination}></div>
+        {currentDogs.map((el) => (
+          <DogCard
+            key={el.id}
+            name={el.name}
+            image={el.image}
+            temperament={el.temperament}
+          />
+        ))}
+      </div>
+    </Fragment>
   );
 }

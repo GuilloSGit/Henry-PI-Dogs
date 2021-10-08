@@ -9,12 +9,12 @@ const { getAllDogs /* , getApiInfoDog, getDBInfoDog */ } = require('../controlle
 
 temperaments.use(express.json());
 
-temperaments.get('/temperament', async (req, res) => {
+temperaments.get('/temperament',/* http://localhost:3001/temperament */ async (req, res) => {
     const allData = await axios.get(URL);
     try {
-        const everyTemperament = allData.data.map(dog => dog.temperament ? dog.temperament : "No info").map(dog => dog?.split(', '));
+        let everyTemperament = allData.data.map(dog => dog.temperament ? dog.temperament : "No info").map(dog => dog?.split(', '));
         /* Set para hacer UNIQUE :: Stackoverflow */
-        const eachTemperament = [...new Set(everyTemperament.flat())];
+        let eachTemperament = [...new Set(everyTemperament.flat())];
         eachTemperament.forEach(el => {
             if (el) { // temperament : ,
                 Temperament.findOrCreate({
@@ -22,8 +22,8 @@ temperaments.get('/temperament', async (req, res) => {
                 });
             }
         });
-        eachTemperament.sort()
-        res.status(200).json(eachTemperament);
+        eachTemperament = await Temperament.findAll();
+        res.status(200).json(eachTemperament.sort());
     } catch (error) {
         res.status(404).send(error)
     }

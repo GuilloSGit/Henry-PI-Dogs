@@ -35,9 +35,8 @@ dogs.post('/dogs', async (req, res) => {
         weight_max,
         life_span,
         temperament,
-        image        
     } = req.body;
-    
+
     if (name && height_min && height_max && weight_min && weight_max && temperament) { // takes that data for the new dog  
         const createDog = await Dog.create({
             name: name,
@@ -48,11 +47,13 @@ dogs.post('/dogs', async (req, res) => {
             life_span: life_span,
             image: `https://wallpaperaccess.com/full/390975.jpg`
         });
-        const findTemp = await Temperament.findAll({
-            where: { name: temperament }
-        });
-        createDog.addTemperament(findTemp);
-        res.status(200).send('Dog was correctly created');
+        temperament.map(async el => {
+            const findTemp = await Temperament.findAll({
+                where: { name: el }
+            });
+            createDog.addTemperament(findTemp);
+        })
+        res.status(200).send(createDog);
     } else {
         res.status(404).send('Data needed to proceed is missing');
     }

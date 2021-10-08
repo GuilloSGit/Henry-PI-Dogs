@@ -1,6 +1,7 @@
 const axios = require('axios')
 const { API_KEY } = process.env;
 const { Temperament, Dog } = require('../db');
+const dogs = require('../routes/routesDog');
 const URL = `https://api.thedogapi.com/v1/breeds?${API_KEY}`;
 
 const getApiInfoDog = async () => {
@@ -13,9 +14,9 @@ const getApiInfoDog = async () => {
             breed_group: e.breed_group,
             temperament: e.temperament,
             life_span: e.life_span,
-            weight_min: parseInt(e.weight.metric.slice(0,2).trim()),
+            weight_min: parseInt(e.weight.metric.slice(0, 2).trim()),
             weight_max: parseInt(e.weight.metric.slice(4).trim()),
-            height_min: parseInt(e.height.metric.slice(0,2).trim()),
+            height_min: parseInt(e.height.metric.slice(0, 2).trim()),
             height_max: parseInt(e.height.metric.slice(4).trim()),
         };
     });
@@ -23,7 +24,7 @@ const getApiInfoDog = async () => {
 };
 
 const getDBInfoDog = async () => {
-    return await Dog.findAll({
+    var dogsDB = await Dog.findAll({
         include: {
             model: Temperament,
             attributes: ['name'],
@@ -32,6 +33,7 @@ const getDBInfoDog = async () => {
             },
         }
     });
+    return dogsDB;
 };
 
 const getAllDogs = async () => {

@@ -6,6 +6,7 @@ import {
   getTemperaments,
   filterDogsByTemperament,
   orderByName,
+  filterCreated
 } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
 
@@ -25,12 +26,12 @@ export default function SideBar() {
   }
   function handleClickOrder(e){
     e.preventDefault();
-    dispatch(orderByName());
+    dispatch(orderByName(e.target.value));
   }
   
- /*  function handleFilterCreated(e){
-    dispatch(filterCreated());
-  } */
+  function handleFilterCreated(e){
+    dispatch(filterCreated(e.target.value));
+  }
   
   function handleFilteredByTemp(e) {
     e.preventDefault();
@@ -49,7 +50,7 @@ export default function SideBar() {
             }}
           >
             <span className="material-icons refresh">loop</span>
-            <span className={styles.tooltiptext}>Reset all</span>
+            <span className={styles.tooltiptext}>Reset</span>
           </div>
         </div>
         <hr />
@@ -65,8 +66,10 @@ export default function SideBar() {
         </div>
         <div>
           <h6>Filter by source</h6>
-          <select>
-            <option value="all">All 🐶</option>
+          <select onChange={(e) => {
+              handleFilterCreated(e);
+            }}>
+            <option defaultValue value="all" hidden >Source 🐶</option>
             <option value="created">Yours 🐶</option>
             <option value="inDB">dbase 🐶</option>
           </select>

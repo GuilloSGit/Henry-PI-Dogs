@@ -1,5 +1,5 @@
 .crumbs {
-  margin: 10px;
+  margin: 7px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -26,4 +26,8 @@
   background-color: #444c5c;
   color: #f5f9ff;
   border-color: #1d1f20;
+}
+
+.nav{
+  max-width: 800px;
 }

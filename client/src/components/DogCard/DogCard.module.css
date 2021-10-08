@@ -1,12 +1,12 @@
 .dogCard {
   margin: 10px 15px;
     padding: 2px;
-    width: 300px;
-    height: 370px;
+    width: 280px;
+    height: 350px;
     border-radius: 12px;
     box-shadow: 6px 7px 8px -6px rgba(69,69,69,0.7);
     position: relative;
-    background-image:url("https://www.wallpapertip.com/wmimgs/80-807382_green-wallpaper-design.jpg");
+    background-color:rgb(1, 53, 5);
     background-size: cover;
     background-position: -20px -50%;
   }
@@ -17,7 +17,7 @@
   }
   
   .titleArea {
-    font-size: 30px;
+    font-size: 23px;
     padding-top: 5px;
     margin: 5px;
     margin-bottom: 15px;
@@ -30,7 +30,7 @@
   }
   
   .infoArea {
-    font-size: 25px;
+    font-size: 20px;
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
@@ -43,7 +43,7 @@
   }
   
   .dogTemp {
-    color: rgb(42, 47, 47);
+    color: rgb(255, 255, 255);
     text-align: center;
   }
   

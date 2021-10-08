@@ -14,7 +14,6 @@ export default function DogArea() {
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
-
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -22,6 +21,7 @@ export default function DogArea() {
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);
+
 
   return (
     <Fragment>
@@ -32,7 +32,8 @@ export default function DogArea() {
           pagination={pagination}
         />
         <div className={styles.pagination}></div>
-        {currentDogs.map((el) => (
+        {
+          currentDogs.map((el) => (
           <DogCard
             key={el.id}
             name={el.name}

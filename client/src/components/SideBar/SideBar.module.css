@@ -3,9 +3,10 @@
     flex-direction: column;
     background-color: rgb(18, 42, 41);
     color: #fff;
-    top:20%;
-    left: 4%;
+    top:5%;
+    left: 2%;
     margin: 100px 5px;
+    margin-left: 5%;
     padding: 10px;
     border-radius: 12px;
     min-width: 200px;

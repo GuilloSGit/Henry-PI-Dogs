@@ -27,55 +27,33 @@ function rootReducer(state = initialState, action) {
                 temperaments: action.payload
             }
 
-        case 'GET_BREEDS':
-            return {
-                ...state,
-                breeds: action.payload
-            }
-
-        case 'FILTER_DOGS_BY_BREED':
-            return {
-                ...state,
-                allDogs: action.payload
-            }
-
-        case 'GET_FILTER_CREATED':
-            const create = state.allDogs;
-            const filterCreate = action.payload === 'created' ? create.filter(d => d.createdInDB) : create.filter(d => !d.createdInDB);
-            return{
-                ...state,
-                dogs:filterCreate
-            }
-
-        case 'GET_NAME_DOGS':
-            return {
-                ...state,
-                dogs: action.payload
-            }
-
         case 'ORDER_BY_NAME':
             const sortedArr = action.payload === 'asc' ?
-                state.dogs.sort(function (a, b) {
-                    if (a.name > b.name) {
-                        return 1;
-                    }
-                    if (b.name > a.name) {
-                        return -1;
-                    }
-                    return 0
-                }) :
-                state.dogs.sort(function (a, b) {
-                    if (a.name > b.name) {
-                        return -1;
-                    }
-                    if (b.name > a.name) {
-                        return 1;
-                    }
-                    return 0
-                })
+            [...state.dogs].sort(function(a,b) {
+                if(a.name > b.name) { return 1 }
+                if(b.name > a.name) { return -1 }
+                return 0;
+            }) :
+            [...state.dogs].sort(function(a,b) {
+                if(a.name > b.name) { return -1; }
+                if(b.name > a.name) { return 1; }
+                return 0;
+            })
             return {
                 ...state,
-                dogs: sortedArr
+                allDogs: sortedArr
+            }
+        
+        case 'FILTER_CREATED':
+            const allDogs = state.dogs
+            const createdFilter = action.payload === 'created' ?
+            allDogs.filter(el => el.createdInDB) :
+            allDogs.filter(el => !el.createdInDB);
+            return{
+                ...state,
+                allDogs:action.payload === 'all' ?
+                state.allDogs :
+                createdFilter
             }
 
         default:

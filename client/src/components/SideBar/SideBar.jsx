@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import {
   getDogs,
   getTemperaments,
-  getBreeds,
   filterDogsByTemperament,
-  filterDogsByBreed,
-  getfilterCreated,
   orderByName,
 } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
@@ -20,32 +17,24 @@ export default function SideBar() {
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
-    dispatch(getBreeds());
   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
   }
-
-  function handleSort(e) {
+  function handleClickOrder(e){
     e.preventDefault();
-    dispatch(orderByName(e.target.value));
+    dispatch(orderByName());
   }
-
+  
+ /*  function handleFilterCreated(e){
+    dispatch(filterCreated());
+  } */
+  
   function handleFilteredByTemp(e) {
     e.preventDefault();
     dispatch(filterDogsByTemperament(e.target.value));
-  }
-
-  function handleFilterCreated(e) {
-    e.preventDefault();
-    dispatch(getfilterCreated(e.target.value));
-  }
-
-  function handleFilteredByBreed(e) {
-    e.preventDefault();
-    dispatch(filterDogsByBreed(e.target.value));
   }
 
   return (
@@ -66,14 +55,17 @@ export default function SideBar() {
         <hr />
         <div>
           <h6>Filter by name</h6>
-          <select onChange={(e) => handleSort(e)}>
+          <select onChange={(e) => {
+              handleClickOrder(e);
+            }}>
+            <option defaultValue value="all" hidden >Order</option>
             <option value="asc">A - Z</option>
             <option value="desc">Z - A</option>
           </select>
         </div>
         <div>
           <h6>Filter by source</h6>
-          <select onChange={(e) => handleFilterCreated(e)}>
+          <select>
             <option value="all">All 🐶</option>
             <option value="created">Yours 🐶</option>
             <option value="inDB">dbase 🐶</option>
@@ -94,7 +86,7 @@ export default function SideBar() {
         </div>
         <div>
           <h6>Filter by breed</h6>
-          <select onChange={(e) => handleFilteredByBreed(e)}>
+          <select>
             <option value="all">All Breeds</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
@@ -109,7 +101,7 @@ export default function SideBar() {
         </div>
         <div>
           <h6>Filter by max weight</h6>
-          <select onChange={(e) => handleFilteredByBreed(e)}>
+          <select>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
@@ -124,7 +116,7 @@ export default function SideBar() {
         </div>
         <div>
           <h6>Filter by min weight</h6>
-          <select onChange={(e) => handleFilteredByBreed(e)}>
+          <select>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
@@ -140,7 +132,7 @@ export default function SideBar() {
         <div>
           <h6>Add a Woof</h6>
           <Link to="/dog" className={styles.tooltip}>
-            <span className="material-icons" classname={styles.addDog}>add_circle</span>
+            <span className="material-icons">add_circle</span>
             <span className={styles.tooltiptext}>Add your Woof 🐕</span>
           </Link>
         </div>

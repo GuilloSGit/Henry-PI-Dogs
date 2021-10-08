@@ -7,24 +7,25 @@ const { getAllDogs /*, getApiInfoDog, getDBInfoDog */ } = require('../controller
 dogs.use(express.json());
 
 dogs.get('/dogs', async (req, res) => {
-    const name = req.query.name;
-    try {
-        let dogsTotal = await getAllDogs();
-        if (name) { /* Si entra un query */
-            let dogName = await dogsTotal.filter(
-                dog => dog.name.toLowerCase().includes(name.toLowerCase())
-            );
-            dogName.length ?
-                res.status(200).send(dogName) :
-                res.status(404).send("Cann't find the dog with the name you are looking for")
-        } else { /* Si no hay query en la URL */
-            res.status(200).json(dogsTotal)
+    /* http://localhost:3001/dogs && http://localhost:3001/dogs/?name=Affenpinscher */
+        const name = req.query.name;
+        try {
+            let dogsTotal = await getAllDogs();
+            if (name) { /* Si entra un query */
+                let dogName = await dogsTotal.filter(
+                    dog => dog.name.toLowerCase().includes(name.toLowerCase())
+                );
+                dogName.length ?
+                    res.status(200).send(dogName) :
+                    res.status(404).send("Cann't find the dog with the name you are looking for")
+            } else { /* Si no hay query en la URL */
+                res.status(200).json(dogsTotal)
+            }
+        } catch (error) {
+            res.status(404).send(error)
         }
-    } catch (error) {
-        res.status(404).send(error)
-    }
 
-});
+    });
 
 dogs.post('/dogs', async (req, res) => {
     const { // takes these properties to build the new dog
@@ -60,6 +61,7 @@ dogs.post('/dogs', async (req, res) => {
 })
 
 dogs.get('/dogs/:idRaza', async (req, res) => {
+     /* http://localhost:3001/dogs/7 &  */
     try {
         const { idRaza } = req.params;
         const allDogs = await getAllDogs();

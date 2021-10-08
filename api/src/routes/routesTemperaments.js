@@ -23,7 +23,7 @@ temperaments.get('/temperament',/* http://localhost:3001/temperament */ async (r
             }
         });
         eachTemperament = await Temperament.findAll();
-        res.status(200).json(eachTemperament.sort());
+        res.status(200).json(eachTemperament);
     } catch (error) {
         res.status(404).send(error)
     }

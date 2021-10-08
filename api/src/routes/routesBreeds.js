@@ -5,7 +5,7 @@ const { getAllDogs } = require('../controllers/dogControllers')
 
 breeds.use(express.json());
 
-breeds.get('/breedGroups', async (req, res) => {
+breeds.get('/breedGroups' /* http://localhost:3001/breedGroups */, async (req, res) => {
     try {
         const everyDog = await getAllDogs();
     const everyBreedGroup = everyDog?.map((dog) => {
@@ -14,14 +14,14 @@ breeds.get('/breedGroups', async (req, res) => {
         }else { return dog.breed_group }
     });
     const eachBreedGroup = [...new Set(everyBreedGroup.flat())]
-    res.status(200).json(eachBreedGroup)
+    res.status(200).json(eachBreedGroup.sort())
     } catch (error) {
         console.log(error, "Error on breeds route")
     }
-    
+   
 });
 
-breeds.get('/breedGroup', async (req, res) => {
+breeds.get('/breedGroup' /* http://localhost:3001/breedGroups */, async (req, res) => {
     const breedGroup = req.query.breedGroup;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {

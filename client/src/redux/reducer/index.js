@@ -11,7 +11,8 @@ function rootReducer(state = initialState, action) {
         case 'GET_DOGS':
             return {
                 ...state,
-                dogs: action.payload
+                dogs: action.payload,
+                allDogs:action.payload
             }
 
         case 'GET_DOGS_BY_TEMP':
@@ -38,15 +39,12 @@ function rootReducer(state = initialState, action) {
                 allDogs: action.payload
             }
 
-        case 'FILTER_CREATED':
-            const allDogss = state.allDogs
-            const createdFilter = action.payload === 'created' ?
-                allDogss.filter(el => el.createdInDB) :
-                allDogss.filter(el => !el.createdInDB)
-            return {
+        case 'GET_FILTER_CREATED':
+            const create = state.allDogs;
+            const filterCreate = action.payload === 'created' ? create.filter(d => d.createdInDB) : create.filter(d => !d.createdInDB);
+            return{
                 ...state,
-                dogs: action.payload === 'all' ?
-                    allDogss : createdFilter
+                dogs:filterCreate
             }
 
         case 'GET_NAME_DOGS':

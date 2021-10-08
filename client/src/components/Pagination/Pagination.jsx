@@ -6,7 +6,6 @@ export default function Pagination({dogsPerPage, allDogs, pagination}) {
     for (let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {
         pageNumbers.push(i)
     }
-
     return(
         <nav>
             <ul className={styles.crumbs}>

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styles from "./DogCard.module.css";
 
-export default function DogCard({ id, name, image, temperament }) {
+export default function DogCard({id,name,image,temperament}) {
   return (
     <Fragment>
       <div className={styles.dogCard}>
@@ -13,14 +13,17 @@ export default function DogCard({ id, name, image, temperament }) {
           <hr />
           <div className={styles.infoArea}>
             <div className={styles.tempArea}>
-              {temperament ? <h5 className={styles.dogTemp}>{temperament}</h5> : <br />
-              }
+              {temperament ? (
+                <h5 className={styles.dogTemp}>{temperament}</h5>
+              ) : (
+                <br />
+              )}
             </div>
             <div className={styles.imageArea}>
               <img
                 className={styles.dogImage}
                 src={image}
-                alt={`A dog wich is `+{temperament}}
+                alt={`A dog wich is ` + { temperament }}
                 height="140px"
               />
             </div>

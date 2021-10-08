@@ -7,7 +7,7 @@ import {
   getBreeds,
   filterDogsByTemperament,
   filterDogsByBreed,
-  filterCreated,
+  getfilterCreated,
   orderByName,
 } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
@@ -40,7 +40,7 @@ export default function SideBar() {
 
   function handleFilterCreated(e) {
     e.preventDefault();
-    dispatch(filterCreated(e.target.value));
+    dispatch(getfilterCreated(e.target.value));
   }
 
   function handleFilteredByBreed(e) {
@@ -88,33 +88,45 @@ export default function SideBar() {
             <option value="all">All Breeds</option>
             {breeds.map((breed) => {
               if (!breed) return (breed = "NOTHING");
-              else return <option value={breed}>{breed}</option>;
-            })}
+              else return <option value={breed} key={breed}>{breed}</option>;
+            })
+            }
           </select>
         </div>
         <div>
-        <h6>Filter by source</h6>
+          <h6>Filter by source</h6>
           <select onChange={(e) => handleFilterCreated(e)}>
             <option value="all">All 🐶</option>
             <option value="created">Yours 🐶</option>
             <option value="inDB">dbase 🐶</option>
           </select>
         </div>
-        <div>
-          <h6>Filter by max weight</h6>
-          <input type="range" name="kilograms" list="kgList" />
-          <datalist>
-            <option value="1" />
-            <option value="5" />
-            <option value="10" />
-            <option value="20" />
-            <option value="40" />
-            <option value="60" />
-            <option value="100" />
-          </datalist>
+        {/* <div>
+          <h6>Filter by max weight</h6> 
+          <select onChange={(e) => handleFilteredByBreed(e)}>
+            <option value="all">All Weights</option>
+            {breeds.map((breed) => {
+              if (!breed) return (breed = "NOTHING");
+              else return <option value={breed} key={breed}>{breed}</option>;
+            })
+            }
+          </select>
         </div>
         <div>
-        <Link to='/dog'><button>Create a dog</button></Link>
+          <h6>Filter by min weight</h6> 
+          <select onChange={(e) => handleFilteredByBreed(e)}>
+            <option value="all">All Weights</option>
+            {breeds.map((breed) => {
+              if (!breed) return (breed = "NOTHING");
+              else return <option value={breed} key={breed}>{breed}</option>;
+            })
+            }
+          </select>
+        </div> */}
+        <div>
+          <Link to="/dog">
+            <button>Create a dog</button>
+          </Link>
         </div>
       </div>
     </Fragment>

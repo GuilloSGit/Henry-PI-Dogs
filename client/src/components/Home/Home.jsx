@@ -1,15 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
+import { Fragment } from "react";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
+import SearchBar from "../SearchBar/SearchBar";
+import DogArea from "../DogArea/DogArea";
 
 export default function Home() {
-
 
   return (
     <Fragment>
       <NavBar />
-      <SideBar/>
-      <div></div>
+      <SearchBar />
+      <SideBar />
+      <DogArea />
     </Fragment>
   );
 }

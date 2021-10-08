@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export function getDogs(){
-    return async function(dispatch){
+export function getDogs() {
+    return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/dogs')
         return dispatch({
             type: 'GET_DOGS',
@@ -10,19 +10,19 @@ export function getDogs(){
     }
 }
 
-export function getTemperaments(){
-    return async function(dispatch){
+export function getTemperaments() {
+    return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/temperament')
         return dispatch({
             type: 'GET_TEMPERAMENTS',
-            payload:json.data
+            payload: json.data
         });
     }
 }
 
-export function getBreeds(){
-    return async function(dispatch){
-        var json = await axios.get("http://localhost:3001/breedGroups",{});
+export function getBreeds() {
+    return async function (dispatch) {
+        var json = await axios.get("http://localhost:3001/breedGroups", {});
         return dispatch({
             type: 'GET_BREEDS',
             payload: json.data
@@ -30,27 +30,27 @@ export function getBreeds(){
     }
 }
 
-export function filterDogsByTemperament(payload){
-    return async function(dispatch){
+export function filterDogsByTemperament(payload) {
+    return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/dog/?temperament=${payload}`); 
+            var json = await axios.get(`http://localhost:3001/dog/?temperament=${payload}`);
             return dispatch({
                 type: 'GET_DOGS_BY_TEMP',
-                payload:json.data
-            })  
+                payload: json.data
+            })
         } catch (error) {
             console.log(error, "Error on the filters in actions file")
         }
     }
 }
 
-export function filterDogsByBreed(payload){
-    return async function(dispatch){
+export function filterDogsByBreed(payload) {
+    return async function (dispatch) {
         try {
             var json = await axios.get(`http://localhost:3001/breedGroup?breedGroup=${payload}`);
             return dispatch({
                 type: 'FILTER_DOGS_BY_BREED',
-                payload:json.data
+                payload: json.data
             })
         } catch (error) {
             console.log(error, "Error on the filters in actions file")
@@ -59,8 +59,8 @@ export function filterDogsByBreed(payload){
     }
 }
 
-export function getDogsByName(payload){
-    return async function(dispatch){
+export function getDogsByName(payload) {
+    return async function (dispatch) {
         try {
             var json = await axios.get(`http://localhost:3001/dogs?name=${payload}`)
             return dispatch({
@@ -73,9 +73,9 @@ export function getDogsByName(payload){
     }
 }
 
-export function filterCreated(payload){
+export function getfilterCreated(payload) {
     return {
-        type: 'FILTER_CREATED',
+        type: 'GET_FILTER_CREATED',
         payload
     }
 }

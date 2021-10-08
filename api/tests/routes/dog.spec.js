@@ -54,12 +54,12 @@ describe('/dogs/:id', function() {
     return agent 
       .get('/dogs/13')
       .expect(function(res) {
-        expect(res.body[0].name).equal('American Eskimo Dog (Miniature)'); 
+        expect(res.body.name).equal('American Eskimo Dog (Miniature)'); 
       });
   }).timeout(10000)
 })
 describe('/temperament', function() {
-  it('GET send status 200 when finding temperaments', function() {
+  it('GET sends status 200 when finding temperaments', function() {
     return agent 
       .get('/temperament') 
       .expect(function(res){

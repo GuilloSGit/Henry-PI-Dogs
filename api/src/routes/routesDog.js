@@ -27,7 +27,6 @@ dogs.get('/dogs', async (req, res) => {
 });
 
 dogs.post('/dogs', async (req, res) => {
-    let createDB;
     const { // takes these properties to build the new dog
         name,
         height_min,
@@ -47,9 +46,8 @@ dogs.post('/dogs', async (req, res) => {
             weight_min: parseInt(weight_min),
             weight_max: parseInt(weight_max),
             life_span: life_span,
-            image: image
+            image: `https://wallpaperaccess.com/full/390975.jpg`
         });
-
         const findTemp = await Temperament.findAll({
             where: { name: temperament }
         });

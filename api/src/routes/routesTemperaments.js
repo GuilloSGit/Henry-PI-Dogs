@@ -19,7 +19,7 @@ temperaments.get('/temperament', async (req, res) => {
             if (el) { // temperament : ,
                 Temperament.findOrCreate({
                     where: { name: el }
-                })
+                });
             }
         });
         eachTemperament.sort()

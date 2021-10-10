@@ -9,12 +9,15 @@ import {
   filterCreated,
   getBreeds,
   getDogsByBreed,
+  filterDogsByMAXWeight,
+  filterDogsByMINWeight
 } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
 
 export default function SideBar() {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
+  const allDogs = useSelector((state) => state.allDogs);
   const breeds = useSelector((state) => state.breeds);
 
   useEffect(() => {
@@ -46,6 +49,15 @@ export default function SideBar() {
     dispatch(getDogsByBreed(e.target.value));
   }
 
+  function handleFilteredMAXWeight(e) {
+    e.preventDefault();
+    dispatch(filterDogsByMAXWeight(e.target.value));
+  }
+
+  function handleFilteredMINWeight(e) {
+    e.preventDefault();
+    dispatch(filterDogsByMINWeight(e.target.value));
+  }
   return (
     <Fragment>
       <div className={styles.side}>
@@ -122,32 +134,28 @@ export default function SideBar() {
         </div>
         <div className={styles.filterSection}>
           <h5 className={styles.filterHeader}>Filter by max weight</h5>
-          <select>
+          <select onChange={(e) => handleFilteredMAXWeight(e)}>
             <option value="all">All Weights</option>
-            {breeds.map((breed) => {
-              if (!breed) return (breed = "NOTHING");
-              else
-                return (
-                  <option value={breed} key={breed}>
-                    {breed}
-                  </option>
-                );
-            })}
+            {
+                allDogs.map((dog) =>{
+                  return(
+                    <option value={dog.weight_max} key={dog.id}>{dog.weight_max} kg</option>
+                  )
+                })
+              }
           </select>
         </div>
         <div className={styles.filterSection}>
           <h5 className={styles.filterHeader}>Filter by min weight</h5>
-          <select>
+          <select onChange={(e) => handleFilteredMINWeight(e)}>
             <option value="all">All Weights</option>
-            {breeds.map((breed) => {
-              if (!breed) return (breed = "NOTHING");
-              else
-                return (
-                  <option value={breed} key={breed}>
-                    {breed}
-                  </option>
-                );
-            })}
+            {
+                allDogs.map((dog) =>{
+                  return(
+                    <option value={dog.weight_min} key={dog.id}>{dog.weight_min} kg</option>
+                  )
+                })
+              }
           </select>
         </div>
         <div className={styles.filterSection}>

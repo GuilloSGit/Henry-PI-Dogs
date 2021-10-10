@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+export function orderByName(payload) {
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+
 export function getDogs() {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/dogs')
@@ -10,18 +17,28 @@ export function getDogs() {
     }
 }
 
-export function getDogsByName(name) {
-    return async function (dispatch) {
-      const { data } = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-      dispatch({ type: "GET_DOGS_BY_NAME", payload: data });
-    };
-  }
-
-export function orderByName(payload) {
+export function filterDogsByMAXWeight(payload){
     return {
-        type: 'ORDER_BY_NAME',
+        type: 'FILTER_BY_MAX_WEIGHT',
         payload
     }
+}
+
+export function filterDogsByMINWeight(payload){
+    return {
+        type: 'FILTER_BY_MIN_WEIGHT',
+        payload
+    }
+}
+
+export function getDogsByName(name) {
+    return async function (dispatch) {
+        const { data } = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+        return dispatch({
+            type: "GET_DOGS_BY_NAME",
+            payload: data
+        });
+    };
 }
 
 export function getTemperaments() {
@@ -72,9 +89,10 @@ export function filterDogsByTemperament(payload) {
     }
 }
 
-export function filterCreated(payload){
-    return{
+export function filterCreated(payload) {
+    return {
         type: 'FILTER_CREATED',
         payload
     }
 }
+

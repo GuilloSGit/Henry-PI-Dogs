@@ -1,55 +1,85 @@
-.side{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(18, 42, 41);
-    color: #fff;
-    top:5%;
-    left: 2%;
-    margin: 100px 5px;
-    margin-left: 3%;
-    padding: 10px;
-    border-radius: 12px;
-    min-width: 200px;
-    height: 50%;
-    position: fixed;
+.side {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(18, 42, 41);
+  color: #fff;
+  top: 5%;
+  left: 2%;
+  margin: 100px 5px;
+  margin-left: 3%;
+  padding: 10px;
+  border-radius: 12px;
+  min-width: 200px;
+  height: fit-content;
+  position: fixed;
 }
 
-.sideBarHeader{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 5px 0;
+.sideBarHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
 }
 
-.header{
-    margin: 0 10px;
+.header {
+  margin: 0 10px;
 }
 .refresh:hover {
-    color: white;
-    background-color: #454545;
-    cursor: pointer;
-  }
-  .tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .tooltip .tooltiptext {
-    font-size: 18px;
-    top:-05px;
-    left:120%;
-    visibility: hidden;
-    width: 150px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
+  color: white;
+  background-color: #454545;
+  cursor: pointer;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tooltip .tooltiptext {
+  font-size: 18px;
+  top: -05px;
+  left: 120%;
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.filterSection {
+  margin: 8px 5px;
+}
+
+.filterHeader {
+  margin-bottom: 2%;
+}
+
+select {
+  width: 100%;
+}
+
+.addDog {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.addDog > a >span {
+  font-size: 40px;
+}
+
+option {
+  line-height: 1.5;
+}

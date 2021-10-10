@@ -12,7 +12,13 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 dogs: action.payload,
-                allDogs:action.payload
+                allDogs: action.payload
+            }
+
+        case "GET_DOGS_BY_NAME":
+            return {
+                ...state,
+                allDogs: action.payload,
             }
 
         case 'GET_DOGS_BY_TEMP':
@@ -21,36 +27,51 @@ function rootReducer(state = initialState, action) {
                 allDogs: action.payload
             }
 
+        case 'GET_BREEDS':
+            return {
+                ...state,
+                breeds: action.payload
+            }
+
         case 'GET_TEMPERAMENTS':
             return {
                 ...state,
                 temperaments: action.payload
             }
 
-        case 'ORDER_BY_NAME':
-            const sortedArr = action.payload === 'asc' ?
-            [...state.dogs].sort(function(a,b) {
-                if(a.name > b.name) { return 1 }
-                if(b.name > a.name) { return -1 }
-                return 0;
-            }) :
-            [...state.dogs].sort(function(a,b) {
-                if(a.name > b.name) { return -1; }
-                if(b.name > a.name) { return 1; }
-                return 0;
-            })
+        case 'GET_DOGS_BY_BREED':
+            const allDogs = state.dogs
+            if(action.payload === 'all')return allDogs
             return {
                 ...state,
-                allDogs: sortedArr
+                allDogs: action.payload,
+                dogs: allDogs
             }
-        
+
         case 'FILTER_CREATED':
             const createdFilter = action.payload === 'created' ?
                 state.dogs.filter(el => el.createdInDB === true) :
                 state.dogs.filter(el => !el.createdInDB);
-            return{
+            return {
                 ...state,
-                allDogs: createdFilter
+                allDogs: createdFilter,
+            }
+
+        case 'ORDER_BY_NAME':
+            const sortedArr = action.payload === 'asc' ?
+                [...state.dogs].sort(function (a, b) {
+                    if (a.name > b.name) { return 1 }
+                    if (b.name > a.name) { return -1 }
+                    return 0;
+                }) :
+                [...state.dogs].sort(function (a, b) {
+                    if (a.name > b.name) { return -1; }
+                    if (b.name > a.name) { return 1; }
+                    return 0;
+                })
+            return {
+                ...state,
+                allDogs: sortedArr
             }
 
         default:

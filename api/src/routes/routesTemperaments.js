@@ -33,7 +33,8 @@ temperaments.get('/dog/',/* http://localhost:3001/dog/?temperament=active */ asy
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
-        if (dog.temperament) {
+        if(temperament === 'all') return everyDog
+        else if (dog.temperament) {
             return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase())
         }
     });

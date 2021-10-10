@@ -21,11 +21,12 @@ breeds.get('/breedGroups' /* http://localhost:3001/breedGroups */, async (req, r
    
 });
 
-breeds.get('/breedGroup' /* http://localhost:3001/breedGroups */, async (req, res) => {
+breeds.get('/breedGroup' /* http://localhost:3001/breedGroup?breedGroup=Hound */, async (req, res) => {
     const breedGroup = req.query.breedGroup;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
-        if (dog.breed_group !== undefined) { return (dog.breed_group.toLowerCase()).includes(breedGroup.toLowerCase()) }
+        if(breedGroup === 'all') return everyDog
+        else if (dog.breed_group !== undefined) { return (dog.breed_group.toLowerCase()).includes(breedGroup.toLowerCase()) }
     });
     res.status(200).json(dogSearchResult)
 });

@@ -1,6 +1,6 @@
 import styles from './Pagination.module.css'
 
-export default function Pagination({dogsPerPage, allDogs, pagination}) {
+export default function Pagination({dogsPerPage, allDogs, pagination, currentPage}) {
     const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {
@@ -13,7 +13,7 @@ export default function Pagination({dogsPerPage, allDogs, pagination}) {
                     pageNumbers&&
                     pageNumbers.map(number => (
                         <li className={styles.number} key={number}>
-                            <a className={styles.crumb} href="##" onClick={()=> pagination(number)}>{number}</a>
+                            <div className={currentPage === number ? styles.crumb__active : styles.crumb} onClick={()=> pagination(number)}>{number}</div>
                         </li>
                     ))
                 }

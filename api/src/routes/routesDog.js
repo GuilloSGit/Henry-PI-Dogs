@@ -22,7 +22,7 @@ dogs.get('/dogs', async (req, res) => {
                 res.status(200).json(dogsTotal)
             }
         } catch (error) {
-            res.status(404).send(error)
+            res.status(404).json("There is no dog's with this name")
         }
 
     });

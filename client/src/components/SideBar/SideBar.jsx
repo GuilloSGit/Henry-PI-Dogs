@@ -6,7 +6,9 @@ import {
   getTemperaments,
   filterDogsByTemperament,
   orderByName,
-  filterCreated
+  filterCreated,
+  getBreeds,
+  getDogsByBreed,
 } from "../../redux/actions/index";
 import styles from "./SideBar.module.css";
 
@@ -18,24 +20,30 @@ export default function SideBar() {
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
+    dispatch(getBreeds());
   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
   }
-  function handleClickOrder(e){
+  function handleClickOrder(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
   }
-  
-  function handleFilterCreated(e){
+
+  function handleFilterCreated(e) {
     dispatch(filterCreated(e.target.value));
   }
-  
+
   function handleFilteredByTemp(e) {
     e.preventDefault();
     dispatch(filterDogsByTemperament(e.target.value));
+  }
+
+  function handleFilteredByBreed(e) {
+    e.preventDefault();
+    dispatch(getDogsByBreed(e.target.value));
   }
 
   return (
@@ -50,32 +58,44 @@ export default function SideBar() {
             }}
           >
             <span className="material-icons refresh">loop</span>
-            <span className={styles.tooltiptext}>Reset</span>
+            <span className={styles.tooltiptext}>
+              🐕 Reset 🐕
+              <br />
+              selections
+            </span>
           </div>
         </div>
         <hr />
-        <div>
-          <h6>Filter by name</h6>
-          <select onChange={(e) => {
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by name</h5>
+          <select
+            onChange={(e) => {
               handleClickOrder(e);
-            }}>
-            <option defaultValue value="all" hidden >Order</option>
+            }}
+          >
+            <option defaultValue value="all" hidden>
+              Order
+            </option>
             <option value="asc">A - Z</option>
             <option value="desc">Z - A</option>
           </select>
         </div>
-        <div>
-          <h6>Filter by source</h6>
-          <select onChange={(e) => {
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by source</h5>
+          <select
+            onChange={(e) => {
               handleFilterCreated(e);
-            }}>
-            <option defaultValue value="all" hidden >Source 🐶</option>
+            }}
+          >
+            <option defaultValue value="all">
+              Source 🐶
+            </option>
             <option value="created">Yours 🐶</option>
             <option value="inDB">dbase 🐶</option>
           </select>
         </div>
-        <div>
-          <h6>Filter by temperament</h6>
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by temperament</h5>
           <select onChange={(e) => handleFilteredByTemp(e)}>
             <option value="all">All Temperaments</option>
             {temperaments.map((el) => {
@@ -87,23 +107,21 @@ export default function SideBar() {
             })}
           </select>
         </div>
-        <div>
-          <h6>Filter by breed</h6>
-          <select>
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by breed</h5>
+          <select onChange={(e) => handleFilteredByBreed(e)}>
             <option value="all">All Breeds</option>
             {breeds.map((breed) => {
-              if (!breed) return (breed = "NOTHING");
-              else
-                return (
-                  <option value={breed} key={breed}>
-                    {breed}
-                  </option>
-                );
+              return (
+                <option value={breed} key={breed}>
+                  {breed}
+                </option>
+              );
             })}
           </select>
         </div>
-        <div>
-          <h6>Filter by max weight</h6>
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by max weight</h5>
           <select>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
@@ -117,8 +135,8 @@ export default function SideBar() {
             })}
           </select>
         </div>
-        <div>
-          <h6>Filter by min weight</h6>
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Filter by min weight</h5>
           <select>
             <option value="all">All Weights</option>
             {breeds.map((breed) => {
@@ -132,12 +150,14 @@ export default function SideBar() {
             })}
           </select>
         </div>
-        <div>
-          <h6>Add a Woof</h6>
-          <Link to="/dog" className={styles.tooltip}>
-            <span className="material-icons">add_circle</span>
-            <span className={styles.tooltiptext}>Add your Woof 🐕</span>
-          </Link>
+        <div className={styles.filterSection}>
+          <h5 className={styles.filterHeader}>Add a Woof</h5>
+          <div className={styles.addDog}>
+            <Link to="/dog" className={styles.tooltip}>
+              <span className="material-icons">add_circle</span>
+              <span className={styles.tooltiptext}>Add your Woof 🐕🐕🐕🐕</span>
+            </Link>
+          </div>
         </div>
       </div>
     </Fragment>

@@ -6,6 +6,12 @@ export function orderByName(payload) {
         payload
     }
 }
+export function orderByWeight(payload) {
+    return {
+        type: 'ORDER_BY_WEIGHT',
+        payload
+    }
+}
 
 export function getDogs() {
     return async function (dispatch) {
@@ -44,10 +50,19 @@ export function getDogsByName(name) {
 export function getTemperaments() {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/temperament');
+    
         return dispatch({
             type: 'GET_TEMPERAMENTS',
             payload: json.data
         });
+    }
+}
+
+export function postDog(payload){
+    return async function (dispatch){
+        const response = await axios.post('http://localhost:3001/dogs', payload);
+        console.log(response);
+        return response;
     }
 }
 

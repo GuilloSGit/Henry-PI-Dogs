@@ -36,6 +36,7 @@ export default function DogArea() {
           currentDogs.map((el) => (
           <DogCard
             key={el.id}
+            id={el.id}
             name={el.name}
             image={el.image}
             temperament={el.temperament}

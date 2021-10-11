@@ -42,5 +42,6 @@
 }
 
 .nav{
+  z-index: 0;
   max-width: 800px;
 }

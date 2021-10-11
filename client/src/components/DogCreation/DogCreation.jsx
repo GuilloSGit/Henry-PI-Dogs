@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { postDog, getTemperamentsList } from "../../redux/actions/index";
+import styles from "./DogCreation.module.css";
 
 function validateForm(input) {
   let errors = {};
@@ -126,13 +127,13 @@ export default function DogCreation() {
 
   return (
     <Fragment>
-      <div>
+      <div className={styles.mainContainerCreation}>
         <div>
           <h2>Create your Woof</h2>
         </div>
-        <div>
+        <div className={styles.formContainer}>
           <form onSubmit={(e) => handleSubmit(e)}>
-            <div>
+            <div className={styles.Section}>
               <label>Name:</label>
               <input
                 type="text"
@@ -143,12 +144,12 @@ export default function DogCreation() {
                 required
               />
               <div>
-                <p>{errors.name}</p>
+                <p className={styles.error}>{errors.name}</p>
               </div>
             </div>
-            <div>
+            <div className={styles.Section}>
               <h4>Heights</h4>
-              <label>Min Height</label>
+              <label>Min</label>
               <input
                 type="number"
                 value={input.height_min}
@@ -157,11 +158,10 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-              <p>cm</p>
               <div>
-                <p>{errors.height_min}</p>
+                <p className={styles.error}>{errors.height_min}</p>
               </div>
-              <label>Max Height</label>
+              <label>Max</label>
               <input
                 type="number"
                 value={input.height_max}
@@ -170,14 +170,13 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-              <p>cm</p>
               <div>
-                <p>{errors.height_max}</p>
+                <p className={styles.error}>{errors.height_max}</p>
               </div>
             </div>
-            <div>
+            <div className={styles.Section}>
               <h4>Weights</h4>
-              <label>Min Weight</label>
+              <label>Min</label>
               <input
                 type="number"
                 value={input.weight_min}
@@ -186,11 +185,10 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-              <p>kg</p>
               <div>
-                <p>{errors.weight_min}</p>
+                <p className={styles.error}>{errors.weight_min}</p>
               </div>
-              <label>Max Weight</label>
+              <label>Max</label>
               <input
                 type="number"
                 value={input.weight_max}
@@ -199,12 +197,11 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-              <p>kg</p>
               <div>
-                <p>{errors.weight_max}</p>
+                <p className={styles.error}>{errors.weight_max}</p>
               </div>
             </div>
-            <div>
+            <div className={styles.Section}>
               <label>Life Span</label>
               <input
                 type="text"
@@ -214,7 +211,7 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div>
+            <div className={styles.Section}>
               <label>Temperaments</label>
               <select onChange={(e) => handleSelect(e)}>
                 {temperaments.map((temp) => {
@@ -225,19 +222,24 @@ export default function DogCreation() {
                   );
                 })}
               </select>
-              <div>
-              <h4>You have selected that:</h4>
-              {input.temperament.map((el) => (
-                <div key={el}>
-                  <p>{el}</p><button onClick={() => handleDelete(el)}>x</button>
-                </div>
-              ))}
+              <div className={styles.selected}>
+                <h4>You have selected that:</h4>
+                {input.temperament.map((el) => (
+                  <div key={el} className={styles.selectedItems}>
+                    <p>{el}</p>
+                    <button onClick={() => handleDelete(el)}>x</button>
+                  </div>
+                ))}
               </div>
             </div>
-            <Link to="/home">
-              <button>Cancel</button>
-            </Link>
-            <button type="submit">Creat 🐕</button>
+            <div className={styles.buttonSection}>
+              <Link to="/home">
+                <button className={styles.button}>Cancel</button>
+              </Link>
+              <button className={styles.button} type="submit">
+                Creat 🐕
+              </button>
+            </div>
           </form>
         </div>
       </div>

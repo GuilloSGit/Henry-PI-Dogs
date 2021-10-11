@@ -3,11 +3,12 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Home from './components/Home/Home';
 import DogDetail from './components/DogDetail/DogDetail';
 import DogCreation from './components/DogCreation/DogCreation';
+import styles from './App.module.css'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="Guille">
+      <div className={styles.Guille}>
         <Route exact path='/' component={LandingPage} />
         <Route path='/home' component={Home} />
         <Route path='/dogs/:id' component={DogDetail}/>

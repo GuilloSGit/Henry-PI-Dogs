@@ -1,0 +1,71 @@
+.mainContainerCreation{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(1, 53, 5);
+    box-shadow: 6px 7px 8px -6px rgba(69, 69, 69, 0.7);
+    border-radius: 15px;
+    color: white;
+}
+
+.formContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.button {
+    cursor: pointer;
+  line-height: 2.5;
+  width: 75px;
+}
+
+.Section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    margin: 15px;
+    padding: 3px;
+    border: 1px solid white;
+}
+
+.selected{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.selected > h4{
+    width: 100%;
+}
+.selectedItems{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    background-color: rgba(255, 255, 255, 0.281);
+    gap: 5px;
+    margin: 3px;
+    padding: 5px;
+
+}
+label{
+    width: 100%;
+}
+input{
+    width: 100%;
+}
+.error{
+    font-size: 10px;
+    color: red;
+}
+.buttonSection{
+    width: 100%;
+    display: flex;flex-direction: row;
+}

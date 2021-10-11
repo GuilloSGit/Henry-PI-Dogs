@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   getDogs,
-  getTemperaments,
+  getTemperamentsList,
   filterDogsByTemperament,
   orderByName,
   filterCreated,
@@ -40,7 +40,7 @@ export default function SideBar() {
 
   useEffect(() => {
     dispatch(getDogs());
-    dispatch(getTemperaments());
+    dispatch(getTemperamentsList());
     dispatch(getBreeds());
   }, [dispatch]);
   function handleClick(e) {

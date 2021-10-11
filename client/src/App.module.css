@@ -1,6 +1,8 @@
 .Guille{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     width: 95vw;
 }

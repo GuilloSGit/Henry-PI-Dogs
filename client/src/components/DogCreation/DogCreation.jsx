@@ -1,12 +1,61 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { postDog, getTemperaments } from "../../redux/actions/index";
+import { postDog, getTemperamentsList } from "../../redux/actions/index";
+
+function validateForm(input) {
+  let errors = {};
+
+  // NAME
+  if (!input.name) {
+    errors.name = "You must type a name";
+  } else {
+    errors.name = "";
+  }
+
+  // WEIGHTS
+  if (!input.weight_min) {
+    // weight min
+    errors.weight_min = "Type a valid minimal weight number";
+  } else if (!/\d{1,2}/gi.test(input.weight_min)) {
+    errors.weight_min = "Weight must have min values. Example: '25'";
+  } else {
+    errors.weight_min = "";
+  }
+  if (!input.weight_max) {
+    // weight max
+    errors.weight_max = "Type a valid maxim weight number";
+  } else if (!/\d{1,2}/gi.test(input.weight_max)) {
+    errors.weight_max = "Weight must have max values. Example: '25'";
+  } else {
+    errors.weight_max = "";
+  }
+  // HEIGHTS
+  if (!input.height_min) {
+    // height min
+    errors.height_min = "Type a valid minimal height number";
+  } else if (!/\d{1,2}/gi.test(input.height_min)) {
+    errors.height_min = "Height must have min values. Example: '25'";
+  } else {
+    errors.height_min = "";
+  }
+  if (!input.height_max) {
+    // height max
+    errors.height_max = "Type a valid maxim height number";
+  } else if (!/\d{1,2}/gi.test(input.height_max)) {
+    errors.height_max = "Height must have max values. Example: '25'";
+  } else {
+    errors.height_max = "";
+  }
+
+  return errors;
+}
 
 export default function DogCreation() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const temperaments = useSelector((state) => state.temperaments)
+  const temperaments = useSelector((state) => state.temperaments);
+  const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     name: "",
@@ -23,33 +72,56 @@ export default function DogCreation() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      validateForm({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   }
 
   function handleSelect(e) {
     setInput({
       ...input,
-      temperament: [...input.temperament, e.target.value]
+      temperament: [...input.temperament, e.target.value],
+    });
+  }
+
+  function handleDelete(el) {
+    setInput({
+      ...input,
+      temperament: input.temperament.filter((temp) => temp !== el),
     });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postDog(input));
-    alert("Dog created!");
-    setInput({
-      name: "",
-      height_min: "",
-      height_max: "",
-      weight_min: "",
-      weight_max: "",
-      life_span: "",
-      temperament: [],
-    });
+    if (
+      !errors.name &&
+      !errors.weight_min &&
+      !errors.height_min &&
+      !errors.weight_max &&
+      !errors.height_max
+    ) {
+      alert("Your dog has been created successfully");
+      dispatch(postDog(input));
+      setInput({
+        name: "",
+        height_min: "",
+        weight_min: "",
+        height_max: "",
+        weight_max: "",
+        life_span: "",
+        temperaments: [],
+      });
+    } else {
+      return alert("Something went wrong. Please try again.");
+    }
     history.push("/home");
   }
 
   useEffect(() => {
-    dispatch(getTemperaments());
+    dispatch(getTemperamentsList());
   }, [dispatch]);
 
   return (
@@ -61,7 +133,7 @@ export default function DogCreation() {
         <div>
           <form onSubmit={(e) => handleSubmit(e)}>
             <div>
-              <label>Name</label>
+              <label>Name:</label>
               <input
                 type="text"
                 value={input.name}
@@ -70,6 +142,9 @@ export default function DogCreation() {
                 onChange={(e) => handleChange(e)}
                 required
               />
+              <div>
+                <p>{errors.name}</p>
+              </div>
             </div>
             <div>
               <h4>Heights</h4>
@@ -83,6 +158,9 @@ export default function DogCreation() {
                 required
               />
               <p>cm</p>
+              <div>
+                <p>{errors.height_min}</p>
+              </div>
               <label>Max Height</label>
               <input
                 type="number"
@@ -93,6 +171,9 @@ export default function DogCreation() {
                 required
               />
               <p>cm</p>
+              <div>
+                <p>{errors.height_max}</p>
+              </div>
             </div>
             <div>
               <h4>Weights</h4>
@@ -106,6 +187,9 @@ export default function DogCreation() {
                 required
               />
               <p>kg</p>
+              <div>
+                <p>{errors.weight_min}</p>
+              </div>
               <label>Max Weight</label>
               <input
                 type="number"
@@ -116,6 +200,9 @@ export default function DogCreation() {
                 required
               />
               <p>kg</p>
+              <div>
+                <p>{errors.weight_max}</p>
+              </div>
             </div>
             <div>
               <label>Life Span</label>
@@ -129,26 +216,31 @@ export default function DogCreation() {
             </div>
             <div>
               <label>Temperaments</label>
-              <select onChange={(e)=>handleSelect(e)}>
-                {
-                    temperaments.map(temp=>{
-                        return(<option key={temp.id} name={temp.name}>{temp.name}</option>)
-                        })
-                }
+              <select onChange={(e) => handleSelect(e)}>
+                {temperaments.map((temp) => {
+                  return (
+                    <option key={temp} name={temp}>
+                      {temp}
+                    </option>
+                  );
+                })}
               </select>
               <div>
-                <ul>
-                  <li>{input.temperament.map((el) => el + ", ")}</li>
-                </ul>
+              <h4>You have selected that:</h4>
+              {input.temperament.map((el) => (
+                <div key={el}>
+                  <p>{el}</p><button onClick={() => handleDelete(el)}>x</button>
+                </div>
+              ))}
               </div>
             </div>
+            <Link to="/home">
+              <button>Cancel</button>
+            </Link>
+            <button type="submit">Creat 🐕</button>
           </form>
         </div>
       </div>
-      <Link to="/home">
-        <button>Cancel</button>
-      </Link>
-      <button type="submit">Creat 🐕</button>
     </Fragment>
   );
 }

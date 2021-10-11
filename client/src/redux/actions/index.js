@@ -23,14 +23,14 @@ export function getDogs() {
     }
 }
 
-export function filterDogsByMAXWeight(payload){
+export function filterDogsByMAXWeight(payload) {
     return {
         type: 'FILTER_BY_MAX_WEIGHT',
         payload
     }
 }
 
-export function filterDogsByMINWeight(payload){
+export function filterDogsByMINWeight(payload) {
     return {
         type: 'FILTER_BY_MIN_WEIGHT',
         payload
@@ -47,21 +47,20 @@ export function getDogsByName(name) {
     };
 }
 
-export function getTemperaments() {
+export function getTemperamentsList() {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/temperament');
-    
+        var listOfTemperaments = json.data.map(el => el.name)
         return dispatch({
-            type: 'GET_TEMPERAMENTS',
-            payload: json.data
+            type: 'GET_TEMPERAMENTS_LIST',
+            payload: listOfTemperaments
         });
     }
 }
 
-export function postDog(payload){
-    return async function (dispatch){
+export function postDog(payload) {
+    return async function (dispatch) {
         const response = await axios.post('http://localhost:3001/dogs', payload);
-        console.log(response);
         return response;
     }
 }
@@ -111,3 +110,16 @@ export function filterCreated(payload) {
     }
 }
 
+export function getDetails(id) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.get(`http://localhost:3001/dogs/${id}`)
+            return dispatch({
+                type: 'GET_DETAILS',
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

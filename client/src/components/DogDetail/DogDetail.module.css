@@ -1,0 +1,23 @@
+.bodix{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;align-items: center;
+}
+
+.mainContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(1, 53, 5);
+    color:white
+}
+
+.mainTitle{
+    text-align: center;
+}
+
+.image{
+    height: 250px;
+}

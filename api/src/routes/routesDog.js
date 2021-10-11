@@ -61,7 +61,7 @@ dogs.post('/dogs', async (req, res) => {
 })
 
 dogs.get('/dogs/:idRaza', async (req, res) => {
-     /* http://localhost:3001/dogs/7 &  */
+     /* http://localhost:3001/dogs/7 */
     try {
         const { idRaza } = req.params;
         const allDogs = await getAllDogs();

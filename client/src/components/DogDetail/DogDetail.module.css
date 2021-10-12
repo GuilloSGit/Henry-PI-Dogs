@@ -5,7 +5,7 @@
 }
 
 .mainContainer {
-    margin-top: 2%;
+  margin-top: 2%;
   width: 100%;
   height: 100%;
   display: flex;
@@ -94,15 +94,24 @@
 }
 
 .button {
-    cursor: pointer;
-  line-height: 2.5;
-  width: 55px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  cursor: pointer;
+  line-height: 2.1;
+  width: 75px;
+  font-size: 18px;
 }
-.imageSection{
-    padding: 5px;
-    margin: 15px;
+
+.imageSection {
+  padding: 5px;
+  margin: 15px;
 }
-.infoSection{
-    padding: 5px;
-    margin: 15px;
+
+.infoSection {
+  padding: 5px;
+  margin: 15px;
+}
+
+.xBone {
+  height: 25px;
 }

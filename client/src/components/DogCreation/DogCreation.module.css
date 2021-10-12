@@ -1,75 +1,113 @@
-.mainContainerCreation{
-    margin-top: 7%;
-    padding: 3%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgb(1, 53, 5);
-    box-shadow: 6px 7px 8px -6px rgba(69, 69, 69, 0.7);
-    border-radius: 15px;
-    color: white;
+.mainContainerCreation {
+  margin-top: 7%;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(1, 53, 5);
+  box-shadow: 6px 7px 8px -6px rgba(69, 69, 69, 0.7);
+  border-radius: 15px;
+  color: white;
 }
 
-.formContainer{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.formContainer {
+  width: 100%;
+  min-width: 700px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+form{
+    width: 650px;
 }
 .button {
-    cursor: pointer;
+  cursor: pointer;
   line-height: 2.5;
   width: 75px;
 }
 
-.Section{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
-    margin: 15px;
-    padding: 3px;
-    border: 1px solid white;
+.Section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  margin: 8px;
+  padding: 8px;
+  border: 1px solid white;
+  border-radius: 15px;
+  gap: 5px;
+  box-shadow: 6px 7px 8px -6px rgba(69, 69, 69, 0.7);
 }
 
-.selected{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.sidebar_box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.selected > h4{
-    width: 100%;
+.sidebar_box > h4 {
+  width: 100%;
 }
-.selectedItems{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: baseline;
-    background-color: rgba(255, 255, 255, 0.281);
-    gap: 5px;
-    margin: 3px;
-    padding: 5px;
-
+.selectedItems {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  background-color: rgba(255, 255, 255, 0.281);
+  border-radius: 15px;
+  gap: 5px;
+  margin: 5px 8px;
+  padding: 3px 10px;
 }
-label{
-    width: 100%;
+.selectedItems > button {
+    background-color:red;
+    width: 25px;
 }
-input{
-    width: 100%;
+label {
+  width: 100%;
 }
-.error{
-    font-size: 10px;
-    color: red;
+input {
+  width: 100%;
+  line-height: 1.8;
 }
-.buttonSection{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+input::placeholder {
+  color: rgb(163, 207, 118);
+}
+.error {
+  font-size: 10px;
+  color: red;
+}
+.buttonSection {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+option {
+  line-height: 2;
+}
+.styled_select {
+  width: 240px;
+  height: 34px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+.sidebar_box select {
+  padding: 5px 10px;
+  height: 42px;
+  margin: 10px auto;
+  min-width: 100%;
+  -webkit-appearance: none;
+  height: 34px;
+  /* background-color: #ffffff; */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
 }

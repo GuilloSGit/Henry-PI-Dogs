@@ -54,7 +54,12 @@ function validateForm(input) {
 export default function DogCreation() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const temperament = useSelector((state) => state.temperaments);
+  const temperament = useSelector((state) => state.temperaments).sort(
+    function (a, b) {
+      if (a < b) return -1;
+      else return 1;
+    }
+  );;
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
@@ -212,7 +217,7 @@ export default function DogCreation() {
             </div>
             <div className={styles.Section}>
               <label>Temperaments</label>
-              <select onChange={(e) => handleSelect(e)}>
+              <select onChange={(e) => handleSelect(e)} className={styles.styled_select}>
                 {temperament.map((temp) => {
                   return (
                     <option key={temp} name={temp}>
@@ -221,7 +226,7 @@ export default function DogCreation() {
                   );
                 })}
               </select>
-              <div className={styles.selected}>
+              <div className={styles.sidebar_box}>
                 <h4>You have selected that:</h4>
                 {input.temperament.map((el) => (
                   <div key={el} className={styles.selectedItems}>

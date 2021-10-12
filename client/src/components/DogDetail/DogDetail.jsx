@@ -25,15 +25,16 @@ export default function DogDetail(props) {
             <h2 className={styles.mainTitle}>{myDog.name}</h2>
             <img src={myDog.image} alt={myDog.name} className={styles.image} />
             <div className={styles.detailsContainer}>
-              <div className={styles.breed_group}>
+              
+              {
+                myDog.breed_group?(<div className={styles.breed_group}>
               <div className={styles.imageSection}>
               <img src={tinyDog} alt='a tiny svg dog' className={styles.detailsSVG}/>
-              </div>
-              <div className={styles.infoSection}>
+              </div><div className={styles.infoSection}>
                 <h3>Breed group: </h3>
                 <p>{myDog.breed_group}</p>
-              </div>
-              </div>
+              </div></div>):''
+              }    
               <div className={styles.life_span}>
               <div className={styles.imageSection}>
               <img src={heart} alt='a tiny svg dog' className={styles.detailsSVG}/></div>

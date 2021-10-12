@@ -42,7 +42,7 @@
   border-radius: 15px;
   max-width: 90%;
   min-height: 25%;
-  margin: 15px;
+  margin: 10px;
 }
 
 .breed_group {
@@ -50,7 +50,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  width: 45%;
+  width: 50%;
 }
 
 .temperament {
@@ -67,7 +67,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  width: 45%;
+  width: 50%;
 }
 
 .weights {
@@ -75,7 +75,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  width: 45%;
+  width: 50%;
 }
 
 .heights {
@@ -83,11 +83,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  width: 45%;
+  width: 50%;
 }
 
 .detailsSVG {
-  width: 60px;
+  width: 100px;
+  background-color: rgb(3, 59, 8);
+  padding: 15px;
+  border-radius: 15px;
 }
 
 .button {

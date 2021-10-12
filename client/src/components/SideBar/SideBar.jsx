@@ -25,14 +25,16 @@ export default function SideBar() {
   );
   const allDogs = useSelector((state) => state.allDogs);
   const breeds = useSelector((state) => state.breeds);
+  
   const minWeights = allDogs
     .map((el) => el.weight_min)
     .sort(function (a, b) {
       return a - b;
     });
   const allDogsMinWeights = [...new Set(minWeights)];
+  
   const maxWeights = allDogs
-    .map((el) => el.weight_min)
+    .map((el) => el.weight_max)
     .sort(function (a, b) {
       return a - b;
     });

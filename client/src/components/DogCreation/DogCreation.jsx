@@ -55,7 +55,7 @@ function validateForm(input) {
 export default function DogCreation() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const temperaments = useSelector((state) => state.temperaments);
+  const temperament = useSelector((state) => state.temperaments);
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
@@ -113,7 +113,7 @@ export default function DogCreation() {
         height_max: "",
         weight_max: "",
         life_span: "",
-        temperaments: [],
+        temperament: [],
       });
     } else {
       return alert("Something went wrong. Please try again.");
@@ -214,7 +214,7 @@ export default function DogCreation() {
             <div className={styles.Section}>
               <label>Temperaments</label>
               <select onChange={(e) => handleSelect(e)}>
-                {temperaments.map((temp) => {
+                {temperament.map((temp) => {
                   return (
                     <option key={temp} name={temp}>
                       {temp}

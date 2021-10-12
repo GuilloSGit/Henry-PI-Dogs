@@ -33,15 +33,18 @@ export default function DogArea() {
         />
         <div className={styles.pagination}></div>
         {
-          currentDogs.map((el) => (
+          
+          currentDogs.map((el) => { 
+            return  (
           <DogCard
             key={el.id}
             id={el.id}
             name={el.name}
             image={el.image}
             temperament={el.temperament}
+            temperaments={el.temperaments}
           />
-        ))}
+        )})}
       </div>
     </Fragment>
   );

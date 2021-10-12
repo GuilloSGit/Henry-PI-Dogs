@@ -64,7 +64,7 @@ export default function DogDetail(props) {
                 <p>
                   {!myDog.createdInDB
                     ? myDog.temperament
-                    : myDog.temperaments.map((el) => el.name + ", ")}
+                    : myDog.temperaments.map((el) => el.name + " ")}
                 </p>
               </div></div>
             </div>

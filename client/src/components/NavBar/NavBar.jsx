@@ -19,6 +19,7 @@ export default function NavBar() {
           </Link>
           <div>
             <h1>Woof</h1>
+            <p>The dog's page</p>
           </div>
         </div>
         <div>

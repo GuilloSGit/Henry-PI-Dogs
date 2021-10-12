@@ -7,7 +7,6 @@ import tinyDog from "../../assets/dog.svg";
 import heart from "../../assets/heart.svg";
 import scale from "../../assets/scale.svg";
 import bone from "../../assets/bones.svg";
-import xbone from "../../assets/xbutton.svg";
 
 export default function DogDetail(props) {
   const dispatch = useDispatch();
@@ -75,7 +74,7 @@ export default function DogDetail(props) {
                 <div className={styles.imageSection}>
                   <img
                     src={bone}
-                    alt="a tiny svg dog"
+                    alt="a tiny svg bone"
                     className={styles.detailsSVG}
                   />
                 </div>
@@ -88,18 +87,24 @@ export default function DogDetail(props) {
               <br />
               <div className={styles.temperament}>
                 <div className={styles.infoSection}>
+                {
+                  myDog.temperament?
+                  (<div>
                   <h3>Temperament: </h3>
                   <p>
                     {!myDog.createdInDB
                       ? myDog.temperament
                       : myDog.temperaments.map((el) => el.name + " ")}
                   </p>
+                  </div>): <div><p>Temperament: Info not added to this pud yet</p></div>
+                }
+                  
                 </div>
               </div>
             </div>
             <Link to="/home">
               <button className={styles.button}>
-                Back <img src={xbone} alt="an x" className={styles.xBone} />
+                Back
               </button>
             </Link>
           </div>

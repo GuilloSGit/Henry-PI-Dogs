@@ -1,15 +1,18 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-  }
+*,
+*::after,
+*::before {
+  font-family: "Lato", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
 
-.Guille{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100vw;
-    height: 100vh;
+.Guille {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
 }

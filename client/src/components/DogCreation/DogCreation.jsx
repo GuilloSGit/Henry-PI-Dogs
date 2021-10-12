@@ -48,7 +48,6 @@ function validateForm(input) {
   } else {
     errors.height_max = "";
   }
-
   return errors;
 }
 

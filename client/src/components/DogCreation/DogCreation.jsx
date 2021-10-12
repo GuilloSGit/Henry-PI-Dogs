@@ -64,6 +64,7 @@ export default function DogCreation() {
 
   const [input, setInput] = useState({
     name: "",
+    image:"",
     height_min: "",
     height_max: "",
     weight_min: "",
@@ -103,6 +104,7 @@ export default function DogCreation() {
     e.preventDefault();
     if (
       !errors.name &&
+      !errors.image &&
       !errors.weight_min &&
       !errors.height_min &&
       !errors.weight_max &&
@@ -112,6 +114,7 @@ export default function DogCreation() {
       dispatch(postDog(input));
       setInput({
         name: "",
+        image:"",
         height_min: "",
         weight_min: "",
         height_max: "",
@@ -149,6 +152,19 @@ export default function DogCreation() {
               />
               <div>
                 <p className={styles.error}>{errors.name}</p>
+              </div>
+            </div>
+            <div className={styles.Section}>
+              <label>Image URL:</label>
+              <input
+                type="url"
+                value={input.image}
+                name="image"
+                placeholder="http://myimageontheweb.com"
+                onChange={(e) => handleChange(e)}
+              />
+              <div>
+                <p className={styles.error}>{errors.image}</p>
               </div>
             </div>
             <div className={styles.Section}>

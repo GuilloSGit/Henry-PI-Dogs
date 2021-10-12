@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetails } from "../../redux/actions/index";
+import { deleteDetails, getDetails } from "../../redux/actions/index";
 import styles from "./DogDetail.module.css";
 import tinyDog from '../../assets/dog.svg';
 import heart from '../../assets/heart.svg';
@@ -12,7 +12,8 @@ export default function DogDetail(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDetails(props.match.params.id));
+    dispatch(getDetails(props.match.params.id))
+    return () => dispatch(deleteDetails());
   }, [dispatch, props.match.params.id]);
 
   const myDog = useSelector((state) => state.details);

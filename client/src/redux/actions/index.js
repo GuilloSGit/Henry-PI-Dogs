@@ -123,3 +123,11 @@ export function getDetails(id) {
         }
     }
 }
+
+export function deleteDetails() {
+    return async function (dispatch){
+    return dispatch({
+        type: 'DELETE_DETAILS'
+    })
+}
+}

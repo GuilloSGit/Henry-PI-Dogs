@@ -63,7 +63,6 @@ dogs.post('/dogs', async (req, res) => {
                 where: { name: el }
             });
             createDog.addTemperament(findTemp);
-            console.log(findTemp, createDog)
         })
         res.status(200).send(createDog);
     } else {

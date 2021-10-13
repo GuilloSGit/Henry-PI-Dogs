@@ -48,7 +48,8 @@ dogs.post('/dogs', async (req, res) => {
         }
     }
 
-    if (name && height_min && height_max && weight_min && weight_max && temperament && image) { // takes that data for the new dog  
+    if (name && height_min && height_max && weight_min && weight_max && temperament && image) {
+        // takes that data for the new dog  
         const createDog = await Dog.create({
             name: name,
             height_min: parseInt(height_min),

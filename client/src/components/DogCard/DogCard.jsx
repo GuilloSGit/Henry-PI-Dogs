@@ -43,7 +43,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
               <div className={styles.tempArea}>
                 {temperaments ? (
                   <h5 className={styles.dogTemp}>
-                    {temperaments.map((temp) => `${temp.name} `)}
+                    {temperaments.map((temp) => `${temp.name} `).join(', ')}
                   </h5>
                 ) : (
                   <br />

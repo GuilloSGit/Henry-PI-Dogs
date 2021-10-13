@@ -87,25 +87,21 @@ export default function DogDetail(props) {
               <br />
               <div className={styles.temperament}>
                 <div className={styles.infoSection}>
-                {
-                  myDog.temperament?
-                  (<div>
-                  <h3>Temperament: </h3>
-                  <p>
-                    {!myDog.createdInDB
-                      ? myDog.temperament
-                      : myDog.temperaments.map((el) => el.name + " ")}
-                  </p>
-                  </div>): <div><p>Temperament: Info not added to this pud yet</p></div>
-                }
-                  
+                  {
+                    <div>
+                      <h3>Temperament: </h3>
+                      <p>
+                        {myDog.createdInDB
+                          ? myDog.temperaments.map((el) => el.name).join(", ")
+                          : myDog.temperament}
+                      </p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
             <Link to="/home">
-              <button className={styles.button}>
-                Back
-              </button>
+              <button className={styles.button}>Back</button>
             </Link>
           </div>
         </div>

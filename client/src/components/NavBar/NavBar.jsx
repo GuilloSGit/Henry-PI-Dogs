@@ -8,6 +8,7 @@ export default function NavBar() {
   return (
     <Fragment>
       <div className={styles.nav}>
+      <div className={styles.TitleAndSearchBar}>
         <div className={styles.logoAndTitle}>
           <Link to="/home">
             <img
@@ -24,6 +25,10 @@ export default function NavBar() {
         </div>
         <div>
           <SearchBar />
+        </div>
+      </div>
+        <div className={styles.aboutNavButton}>
+          <Link to="/about">About</Link>
         </div>
       </div>
     </Fragment>

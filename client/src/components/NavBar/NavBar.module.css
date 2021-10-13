@@ -1,28 +1,42 @@
-.logo{
-    width: 80px;
-    height: 60px;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
+.logo {
+  width: 80px;
+  height: 60px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.nav{
-    color: #fff;
-    background-color: rgb(18, 42, 41);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    z-index: 1;
-    position: fixed;
+.nav {
+  color: #fff;
+  background-color: rgb(18, 42, 41);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  z-index: 1;
+  position: fixed;
 }
 
-.logoAndTitle{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
+.logoAndTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.TitleAndSearchBar {
+    margin-left: 10%;
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.aboutNavButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 20%;
 }

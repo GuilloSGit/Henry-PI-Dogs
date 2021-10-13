@@ -45,10 +45,12 @@ export default function SideBar() {
     dispatch(getTemperamentsList());
     dispatch(getBreeds());
   }, [dispatch]);
+
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
   }
+  
   function handleClickOrder(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));

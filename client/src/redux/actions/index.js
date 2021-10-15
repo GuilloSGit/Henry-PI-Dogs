@@ -6,6 +6,7 @@ export function orderByName(payload) {
         payload
     }
 }
+
 export function orderByWeight(payload) {
     return {
         type: 'ORDER_BY_WEIGHT',

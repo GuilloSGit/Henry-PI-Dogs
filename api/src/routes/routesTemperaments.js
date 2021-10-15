@@ -33,12 +33,24 @@ temperaments.get('/dog/',/* http://localhost:3001/dog/?temperament=active */ asy
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
-        if(temperament === 'all') return everyDog
+        if (temperament === 'all') return everyDog
         else if (dog.temperament) {
             return (dog.temperament.toLowerCase()).includes(temperament.toLowerCase())
         }
     });
     res.status(200).json(dogSearchResult)
+});
+
+temperaments.post('/temperament/:temperament', async (req, res) => {
+    try{
+    const newTemperament = req.params.temperament;
+    const postedTemp = await Temperament.create({
+       name: newTemperament,
+    });
+    return res.status(200).json(postedTemp)
+    } catch (error) {
+        res.status(404).send(error)
+    }
 });
 
 module.exports = temperaments;

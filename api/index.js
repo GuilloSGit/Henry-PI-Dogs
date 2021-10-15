@@ -36,7 +36,7 @@
 
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const bool = false;
+const bool = true;
 
 // Syncing all the models at once.
 conn.sync({ force: bool }).then(() => {

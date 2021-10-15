@@ -254,7 +254,7 @@ export default function DogCreation() {
             </div>
             <div className={styles.buttonSection}>
               <Link to="/home">
-                <button className={styles.button}>Cancel</button>
+                <button className={styles.buttonCancel}>Cancel</button>
               </Link>
               <button className={styles.button} type="submit">
                 Creat 🐕

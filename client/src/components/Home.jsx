@@ -128,7 +128,7 @@ export default function Home() {
           <div className="dogDeployArea">
             {currentDogs?.map((el) => {
               return (
-                  <DogCard className="dogaCard"
+                  <DogCard className="dogCard"
                     name={el.name}
                     image={el.image? el.image : el.image}
                     temperament={el.temperament}

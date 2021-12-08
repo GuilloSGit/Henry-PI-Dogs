@@ -13,12 +13,11 @@ export default function About() {
         </div>
         <h6>Developed by: Guillermo Andrada</h6>
         <h6>
-          Full Stack Developer || JavaScript || React || Redux || Node.js ||
-          Express.js || SQL || Sequelize
+          Full Stack Developer | JavaScript
         </h6>
         <br />
         <p>
-          I’m a Full Stack JavaScript web developer who’s in love with coding
+          I’m a Full Stack JavaScript developer who’s in love with coding
           and computer systems.
         </p>
         <br />
@@ -37,17 +36,19 @@ export default function About() {
         <br />
         <div className={styles.links}>
           <h6>Contact me:</h6>
-          <h5>
-            <a href="https://github.com/GuilloSGit" target='_blank' rel="noreferrer">GitHub</a>
-          </h5>
-          <h5>
-            <a href="https://www.linkedin.com/in/guillermo-david-andrada/" target='_blank' rel="noreferrer">
-              LinkedIn
-            </a>
-          </h5>
-          <h5>
-            <a href="http://www.g-andrada.ga" target='_blank' rel="noreferrer">My Website</a>
-          </h5>
+          <div className={styles.linksItems}>
+            <p>
+              <a href="https://github.com/GuilloSGit" target='_blank' rel="noreferrer">GitHub</a>
+            </p>
+            <p>
+              <a href="https://www.linkedin.com/in/guillermo-david-andrada/" target='_blank' rel="noreferrer">
+                LinkedIn
+              </a>
+            </p>
+            <p>
+              <a href="http://www.g-andrada.ga" target='_blank' rel="noreferrer">My Website</a>
+            </p>
+            </div>
         </div>
       </div>
     </Fragment>

@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { GET_DOGS, GET_DOG_BY_ID, GET_DOG_BY_NAME, GET_TEMPERAMENTS, FILTER_BY_TEMPERAMENT, FILTER_BY_ORIGIN, ORDER_BY_NAME, ORDER_BY_WEIGHT, POST_DOG } from './types';
+import {
+    GET_DOGS, GET_DOG_BY_ID,
+    FILTER_BY_TEMPERAMENT, ORDER_BY_NAME,
+    ORDER_BY_WEIGHT, GET_TEMPERAMENTS_LIST,
+    GET_DOGS_BY_NAME, GET_DOGS_BY_BREED,
+    GET_DOGS_BY_TEMP, GET_BREEDS,
+    FILTER_CREATED, GET_DETAILS,
+    DELETE_DETAILS, FILTER_BY_MAX_WEIGHT,
+    FILTER_BY_MIN_WEIGHT, FILTER_BY_ORIGIN
+} from './types';
 
 function orderByName(payload) {
     return {
@@ -55,22 +64,29 @@ function filterDogsByMINWeight(payload) {
 
 function getDogsByName(name) {
     return async function (dispatch) {
-        const { data } = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-        return dispatch({
-            type: GET_DOGS_BY_NAME,
-            payload: data
-        });
+        try {
+            const { data } = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+            return dispatch({
+                type: GET_DOGS_BY_NAME,
+                payload: data
+            });
+        } catch (error) {
+            console.log(error, "Error on the filters in actions file")
+        }
     };
 }
 
 function getTemperamentsList() {
     return async function (dispatch) {
-        var json = await axios.get('http://localhost:3001/temperament');
-        var listOfTemperaments = json.data.map(el => el.name)
-        return dispatch({
-            type: GET_TEMPERAMENTS_LIST,
-            payload: listOfTemperaments
-        });
+        try {
+            const json = await axios.get('http://localhost:3001/temperament');
+            return dispatch({
+                type: GET_TEMPERAMENTS_LIST,
+                payload: json.data
+            });
+        } catch (error) {
+            console.log(error, "Error on the filters in actions file")
+        }
     }
 }
 
@@ -141,12 +157,20 @@ function getDetails(id) {
 }
 
 function deleteDetails() {
-    return async function (dispatch){
-    return dispatch({
-        type: DELETE_DETAILS
-    })
+    return function (dispatch) {
+        dispatch({
+            type: DELETE_DETAILS
+        });
+    }
 }
+
+function filterByOrigin(payload) {
+    return {
+        type: FILTER_BY_ORIGIN,
+        payload
+    }
 }
+
 export {
     getDogs,
     getDogById,
@@ -162,5 +186,6 @@ export {
     orderByName,
     postDog,
     filterCreated,
-    getDetails
-};
+    getDetails,
+    filterByOrigin
+}

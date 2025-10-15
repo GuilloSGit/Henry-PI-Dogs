@@ -1,5 +1,3 @@
-import { FILTER_BY_TEMPERAMENT } from "../actions/types";
-
 const initialState = {
     dogs: [],
     allDogs: [],
@@ -10,6 +8,7 @@ const initialState = {
     dogDetail: {}
 };
 
+
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_DOGS':
@@ -19,19 +18,22 @@ function rootReducer(state = initialState, action) {
                 allDogs: action.payload,
                 filteredDogs: action.payload
             };
-        
+
+
         case 'GET_DOG_BY_ID':
             return {
                 ...state,
                 dogDetail: action.payload
             };
-            
+
+
         case 'GET_TEMPERAMENTS':
             return {
                 ...state,
                 temperaments: action.payload
             };
-            
+
+
         case 'FILTER_BY_TEMPERAMENT':
             if (action.payload === 'all') {
                 return {
@@ -39,28 +41,31 @@ function rootReducer(state = initialState, action) {
                     allDogs: state.dogs
                 };
             }
-            const filteredByTemperament = state.dogs.filter(dog => 
-                dog.temperament && 
+            const filteredByTemperament = state.dogs.filter(dog =>
+                dog.temperament &&
                 dog.temperament.toLowerCase().includes(action.payload.toLowerCase())
             );
             return {
                 ...state,
                 allDogs: filteredByTemperament
             };
-            
+
+
         case 'ORDER_BY_NAME':
-            const sortedDogs = [...state.allDogs].sort((a, b) => {
-                if (action.payload === 'asc') {
-                    return a.name.localeCompare(b.name);
-                } else {
-                    return b.name.localeCompare(a.name);
-                }
+            const sortedDogs = [...state.filteredDogs].sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                const result = action.payload === 'asc'
+                    ? nameA.localeCompare(nameB)
+                    : nameB.localeCompare(nameA);
+                return result;
             });
             return {
                 ...state,
-                allDogs: sortedDogs
+                filteredDogs: sortedDogs
             };
-            
+
+
         case 'FILTER_BY_ORIGIN':
             if (action.payload === 'all') {
                 return {
@@ -68,15 +73,16 @@ function rootReducer(state = initialState, action) {
                     allDogs: state.dogs
                 };
             }
-            const filteredByOrigin = state.dogs.filter(dog => 
-                dog.origin && 
+            const filteredByOrigin = state.dogs.filter(dog =>
+                dog.origin &&
                 dog.origin.toLowerCase().includes(action.payload.toLowerCase())
             );
             return {
                 ...state,
                 allDogs: filteredByOrigin
             };
-        
+
+
         case 'ORDER_BY_WEIGHT':
             const sortedByWeight = [...state.allDogs].sort((a, b) => {
                 if (action.payload === 'asc') {
@@ -90,6 +96,7 @@ function rootReducer(state = initialState, action) {
                 allDogs: sortedByWeight
             };
 
+
         case 'FILTER_CREATED':
             if (action.payload === 'all') {
                 return {
@@ -97,8 +104,8 @@ function rootReducer(state = initialState, action) {
                     allDogs: state.dogs
                 };
             }
-            const filteredByCreated = state.dogs.filter(dog => 
-                dog.createdInDb && 
+            const filteredByCreated = state.dogs.filter(dog =>
+                dog.createdInDb &&
                 dog.createdInDb.toLowerCase().includes(action.payload.toLowerCase())
             );
             return {
@@ -106,17 +113,21 @@ function rootReducer(state = initialState, action) {
                 allDogs: filteredByCreated
             };
 
+
         case 'GET_DETAILS':
+            const dogDetail = state.allDogs.find(dog => dog.id === action.payload);
             return {
                 ...state,
-                details: action.payload
+                details: dogDetail ? [dogDetail] : []
             };
-            
+
+
         case 'DELETE_DETAILS':
             return {
                 ...state,
                 details: []
             };
+
 
         case 'POST_DOG':
             return {
@@ -124,33 +135,62 @@ function rootReducer(state = initialState, action) {
                 dogs: [...state.dogs, action.payload]
             };
 
+
         case 'GET_BREEDS':
             return {
                 ...state,
                 breeds: action.payload
             };
-            
+
+
         case 'GET_DOGS_BY_BREED':
             return {
                 ...state,
-                allDogs: action.payload
+                filteredDogs: state.allDogs.filter(dog => dog.breedGroup && dog.breedGroup.toLowerCase().includes(action.payload.toLowerCase()))
             };
-            
+
+
         case 'GET_DOGS_BY_TEMP':
             return {
                 ...state,
-                allDogs: action.payload
+                filteredDogs: state.allDogs.filter(dog => dog.temperament && dog.temperament.toLowerCase().includes(action.payload.toLowerCase()))
             };
+
 
         case 'GET_TEMPERAMENTS_LIST':
             return {
                 ...state,
                 temperaments: action.payload
             };
-            
+
+
+        case 'FILTER_BY_MAX_WEIGHT':
+            return {
+                ...state,
+                filteredDogs: state.allDogs.filter(dog => {
+                    if (!dog.weight) return false;
+                    const [min, max] = dog.weight.split('-').map(Number);
+                    return max <= action.payload;
+                })
+            };
+
+
+        case 'FILTER_BY_MIN_WEIGHT':
+            return {
+                ...state,
+                filteredDogs: state.allDogs.filter(dog => {
+                    if (!dog.weight) return false;
+                    const [min] = dog.weight.split('-').map(Number);
+                    return min >= action.payload;
+                })
+            };
+
+
         default:
             return state;
     }
 }
 
+
 export default rootReducer;
+

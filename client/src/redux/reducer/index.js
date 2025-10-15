@@ -1,10 +1,14 @@
+import { FILTER_BY_TEMPERAMENT } from "../actions/types";
+
 const initialState = {
     dogs: [],
     allDogs: [],
     temperaments: [],
     breeds: [],
-    details:[]
-}
+    details: [],
+    filteredDogs: [],
+    dogDetail: {}
+};
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -12,112 +16,140 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 dogs: action.payload,
-                allDogs: action.payload
-            }
-        case "GET_DOGS_BY_NAME":
+                allDogs: action.payload,
+                filteredDogs: action.payload
+            };
+        
+        case 'GET_DOG_BY_ID':
             return {
                 ...state,
-                allDogs: action.payload,
-            }
-        case 'GET_DOGS_BY_TEMP':
+                dogDetail: action.payload
+            };
+            
+        case 'GET_TEMPERAMENTS':
             return {
                 ...state,
-                allDogs: action.payload,
+                temperaments: action.payload
+            };
+            
+        case 'FILTER_BY_TEMPERAMENT':
+            if (action.payload === 'all') {
+                return {
+                    ...state,
+                    allDogs: state.dogs
+                };
             }
+            const filteredByTemperament = state.dogs.filter(dog => 
+                dog.temperament && 
+                dog.temperament.toLowerCase().includes(action.payload.toLowerCase())
+            );
+            return {
+                ...state,
+                allDogs: filteredByTemperament
+            };
+            
+        case 'ORDER_BY_NAME':
+            const sortedDogs = [...state.allDogs].sort((a, b) => {
+                if (action.payload === 'asc') {
+                    return a.name.localeCompare(b.name);
+                } else {
+                    return b.name.localeCompare(a.name);
+                }
+            });
+            return {
+                ...state,
+                allDogs: sortedDogs
+            };
+            
+        case 'FILTER_BY_ORIGIN':
+            if (action.payload === 'all') {
+                return {
+                    ...state,
+                    allDogs: state.dogs
+                };
+            }
+            const filteredByOrigin = state.dogs.filter(dog => 
+                dog.origin && 
+                dog.origin.toLowerCase().includes(action.payload.toLowerCase())
+            );
+            return {
+                ...state,
+                allDogs: filteredByOrigin
+            };
+        
+        case 'ORDER_BY_WEIGHT':
+            const sortedByWeight = [...state.allDogs].sort((a, b) => {
+                if (action.payload === 'asc') {
+                    return a.weight.localeCompare(b.weight);
+                } else {
+                    return b.weight.localeCompare(a.weight);
+                }
+            });
+            return {
+                ...state,
+                allDogs: sortedByWeight
+            };
+
+        case 'FILTER_CREATED':
+            if (action.payload === 'all') {
+                return {
+                    ...state,
+                    allDogs: state.dogs
+                };
+            }
+            const filteredByCreated = state.dogs.filter(dog => 
+                dog.createdInDb && 
+                dog.createdInDb.toLowerCase().includes(action.payload.toLowerCase())
+            );
+            return {
+                ...state,
+                allDogs: filteredByCreated
+            };
+
+        case 'GET_DETAILS':
+            return {
+                ...state,
+                details: action.payload
+            };
+            
+        case 'DELETE_DETAILS':
+            return {
+                ...state,
+                details: []
+            };
+
+        case 'POST_DOG':
+            return {
+                ...state,
+                dogs: [...state.dogs, action.payload]
+            };
+
         case 'GET_BREEDS':
             return {
                 ...state,
                 breeds: action.payload
-            }
+            };
+            
+        case 'GET_DOGS_BY_BREED':
+            return {
+                ...state,
+                allDogs: action.payload
+            };
+            
+        case 'GET_DOGS_BY_TEMP':
+            return {
+                ...state,
+                allDogs: action.payload
+            };
+
         case 'GET_TEMPERAMENTS_LIST':
             return {
                 ...state,
                 temperaments: action.payload
-            }
-        case 'GET_DOGS_BY_BREED':
-            const allDogs = state.dogs
-            if (action.payload === 'all') return allDogs
-            return {
-                ...state,
-                allDogs: action.payload,
-                dogs: allDogs
-            }
-        case 'FILTER_CREATED':
-            const createdFilter = action.payload === 'created' ?
-                state.dogs.filter(el => el.createdInDB === true) :
-                state.dogs.filter(el => !el.createdInDB);
-            return {
-                ...state,
-                allDogs: createdFilter,
-            }
-        case 'ORDER_BY_NAME':
-            const sortedArr = action.payload === 'asc' ?
-                [...state.dogs].sort(function (a, b) {
-                    if (a.name > b.name) { return 1 }
-                    if (b.name > a.name) { return -1 }
-                    return 0;
-                }) :
-                [...state.dogs].sort(function (a, b) {
-                    if (a.name > b.name) { return -1; }
-                    if (b.name > a.name) { return 1; }
-                    return 0;
-                })
-            return {
-                ...state,
-                allDogs: sortedArr
-            }
-        case 'ORDER_BY_WEIGHT':
-            const sortedWeight = action.payload === 'asc' ?
-                [...state.dogs].sort(function (a, b) {
-                    if(a.weight_min === null) { return 0 }
-                    if (a.weight_min < b.weight_min) { return 1 }
-                    if (b.weight_min < a.weight_min) { return -1 }
-                    return 0;
-                }) :
-                [...state.dogs].sort(function (a, b) {
-                    if(a.weight_min === null) { return 0 }
-                    if (a.weight_min < b.weight_min) { return -1; }
-                    if (b.weight_min < a.weight_min) { return 1; }
-                    return 0;
-                })
-            return {
-                ...state,
-                allDogs: sortedWeight
-            }
-        case 'FILTER_BY_MAX_WEIGHT':
-            const everyDog = state.allDogs
-            const weightMAXFiltered = action.payload === 'all' ?
-                everyDog :
-                everyDog.filter(el => el.weight_max <= action.payload)
-            return {
-                ...state,
-                allDogs: weightMAXFiltered
-            }
-        case 'FILTER_BY_MIN_WEIGHT':
-            const allDoguis = state.allDogs
-            const weightMINFiltered = action.payload === 'all' ?
-                allDoguis :
-                allDoguis.filter(el => el.weight_min >= action.payload)
-            return {
-                ...state,
-                allDogs: weightMINFiltered
-            }
-        case 'POST_DOG':
-            return {
-                ...state
-            }
-        case 'GET_DETAILS':
-            return{
-                ...state,
-                details: action.payload
-            }
-        case 'DELETE_DETAILS':
-            return{
-                ...state,
-                details: []
-            }
+            };
+            
         default:
-            return state
+            return state;
     }
 }
 

@@ -44,7 +44,7 @@ Para verificar que versión tienen instalada:
 
 El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
 
-Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
+Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgreSQL. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
 
 Adicionalmente será necesario que creen desde psql una base de datos llamada `dogs`
 
@@ -77,7 +77,7 @@ __IMPORTANTE__: No se permitirá utilizar librerías externas para aplicar estil
 - [x] React
 - [x] Redux
 - [x] Express
-- [x] Sequelize - Postgres
+- [x] Sequelize - PostgreSQL
 
 #### Frontend
 

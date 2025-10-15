@@ -6,10 +6,6 @@ const URL = `https://api.thedogapi.com/v1/breeds?${API_KEY}`;
 
 const getApiInfoDog = async () => {
     const apiURL = await axios.get(URL);
-    console.log('Primer elemento de la API:', JSON.stringify(apiURL.data[0], null, 2));
-    console.log('Tiene propiedad image?', 'image' in apiURL.data[0]);
-    console.log('Tiene referencia de imagen?', 'reference_image_id' in apiURL.data[0]);
-    
     const apiInfo = await apiURL.data.map(e => {        
         // Asegurarse de que weight y height existan antes de intentar acceder a .metric
         const weight = e.weight?.metric || '0 - 0';

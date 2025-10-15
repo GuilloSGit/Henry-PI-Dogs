@@ -1,4 +1,4 @@
-const { Dog, Temperament, conn } = require("../../src/db")
+const { Dog, Temperament } = require("../../src/db")
 const { expect } = require('chai');
 
 describe('Model Testing', function() {

@@ -25,7 +25,6 @@ dogs.get('/dogs', async (req, res) => {
         } catch (error) {
             res.status(404).json("There is no dog's with this name")
         }
-
     });
 
 dogs.post('/dogs', async (req, res) => {
